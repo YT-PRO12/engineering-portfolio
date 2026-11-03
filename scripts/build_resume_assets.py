@@ -67,7 +67,7 @@ def make_resume(kind, filename):
     p=para(after=2,keep=True);p.add_run('Jaipur, India  |  ')
     hyperlink(p,'yatharthgoyal657@gmail.com','mailto:yatharthgoyal657@gmail.com')
     p=para(after=1,keep=True)
-    for i,(label,url) in enumerate([('GitHub','https://github.com/YT-PRO12'),('LinkedIn','https://www.linkedin.com/in/yatharth-goyal-ab0b8326/'),('Java DSA','https://github.com/YT-PRO12/DSA-Java-Interview-Prep'),('Portfolio source','https://github.com/YT-PRO12/engineering-portfolio')]):
+    for i,(label,url) in enumerate([('GitHub','https://github.com/YT-PRO12'),('LinkedIn','https://www.linkedin.com/in/yatharth-goyal-ab0b8326/'),('Java DSA','https://github.com/YT-PRO12/DSA-Java-Interview-Prep'),('Portfolio','https://yatharth-engineering-portfolio.vercel.app/')]):
         if i:p.add_run('   /   ')
         hyperlink(p,label,url)
     heading('Technical Skills')
@@ -110,7 +110,7 @@ def make_resume(kind, filename):
 
 
 def main():
-    docs=[make_resume('sde','Yatharth_Goyal_Resume.docx'),make_resume('ml','Yatharth_Goyal_AI_ML_Resume.docx')]
+    docs=[make_resume('sde','Yatharth_Goyal_Resume.docx')]
     libreoffice=shutil.which('libreoffice') or shutil.which('soffice')
     if not libreoffice: raise RuntimeError('LibreOffice is required to produce matching PDFs')
     with TemporaryDirectory(prefix='yg-pdf-') as temp:
