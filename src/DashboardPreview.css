@@ -1,0 +1,146 @@
+/* Portfolio case-study dashboard illustrations.
+   These are labeled examples, not screenshots or connected product instances. */
+.portfolio-showcase {
+  --showcase-ink:#233342; --showcase-muted:#657887; --showcase-stroke:#dde6eb;
+  --showcase-soft:#f6f9fb; --showcase-blue:#345f82;
+  margin:28px 0 33px; width:100%; max-width:100%; min-width:0; color:var(--showcase-ink);
+  font-family:Arial,Helvetica,sans-serif; font-size:12px; line-height:1.45;
+}
+.portfolio-showcase * { box-sizing:border-box; }
+.showcase-frame { width:100%; overflow:hidden; border:1px solid #cad7db; border-radius:13px; background:#fff; box-shadow:0 18px 45px rgba(20,41,49,.13),0 2px 6px rgba(20,41,49,.045); }
+.showcase-chrome { height:33px; padding:0 15px; display:flex; align-items:center; gap:13px; background:#edf3f5; border-bottom:1px solid #dce5e8; color:#60727d; font-size:10px; }
+.showcase-window-controls { display:inline-flex; gap:5px; flex:none; }
+.showcase-window-controls i { display:block; width:7px; height:7px; border-radius:50%; background:#c1ccd1; }
+.showcase-window-controls i:first-child {background:#e4a5a1;}
+.showcase-window-controls i:nth-child(2) {background:#edcf82;}
+.showcase-window-controls i:last-child {background:#9bc2ad;}
+.showcase-chrome-title {font-weight:750; letter-spacing:.02em; color:#344853;}
+.showcase-chrome-location {margin-left:auto; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.showcase-app {display:grid; grid-template-columns:141px minmax(0,1fr); min-width:0; min-height:405px; background:#f8fafb;}
+.showcase-sidebar {display:flex; flex-direction:column; gap:4px; min-width:0; padding:21px 10px 14px; background:#1e3442; color:#d4e4eb;}
+.showcase-app-brand {display:flex; align-items:center; gap:8px; margin-bottom:28px; font-size:12px; font-weight:750; line-height:1.2; white-space:nowrap;}
+.showcase-app-brand > b {display:grid; place-items:center; width:29px; height:29px; flex:none; border-radius:8px; background:#bce0ed; color:#173443; font-size:11px;}
+.showcase-app-brand small {display:block; font-size:8px; font-weight:400; color:#a6bdc7; margin-top:3px;}
+.showcase-side-label {font-size:9px; font-weight:bold; letter-spacing:.12em; color:#97b4c3; margin-bottom:7px; padding-left:8px;}
+.showcase-side-link {display:flex; align-items:center; gap:8px; color:#b9ced8; padding:9px 7px; border-radius:7px; font-size:10px; white-space:nowrap;}
+.showcase-side-link i {display:inline-block; width:13px; text-align:center; font-size:13px; font-style:normal;}
+.showcase-side-link.chosen {background:#355263; color:white; font-weight:700;}
+.showcase-side-bottom {margin-top:auto; color:#a5b9c3; border-top:1px solid #41606b; padding-top:13px; font-size:9px;}
+.showcase-side-bottom span {color:#7fb0bd;}
+.showcase-workspace {min-width:0; padding:0 19px 13px;}
+.showcase-workspace-top {display:flex; align-items:center; justify-content:space-between; gap:10px; height:42px; border-bottom:1px solid var(--showcase-stroke); color:#758590; font-size:9px; letter-spacing:.015em;}
+.showcase-top-avatar {width:23px; height:23px; border-radius:50%; display:grid; place-items:center; background:#e2edf2; font-size:9px; color:#34566b; font-weight:750;}
+.showcase-demo-mark {border:1px solid #c0d9d2; background:#eef8f2; border-radius:20px; padding:4px 8px; color:#356254; font-size:8px; font-weight:800; letter-spacing:.07em; white-space:nowrap;}
+.showcase-dashboard-title {display:flex; align-items:center; justify-content:space-between; gap:16px; padding:17px 0 15px;}
+.showcase-kicker {font-size:8px; color:#497084; font-weight:800; letter-spacing:.13em; }
+.showcase-dashboard-title h3 {font-size:23px; font-weight:700; letter-spacing:-.045em; line-height:1.15; color:#203646; margin:5px 0;}
+.showcase-dashboard-title p {font-size:10px; color:#647784; line-height:1.55; max-width:none;}
+.showcase-outline-label {border:1px solid #ccdde4; border-radius:5px; color:#4e6a79; font-size:9px; white-space:nowrap; padding:7px 9px; background:#fff;}
+.showcase-stat-grid {display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:9px; margin-bottom:12px;}
+.showcase-stat-grid > div {border:1px solid var(--showcase-stroke); border-radius:8px; padding:11px 11px 10px; background:#fff; min-width:0;}
+.showcase-stat-grid span {display:block; color:#78909b; letter-spacing:.1em; font-size:8px; font-weight:800;}
+.showcase-stat-grid strong {display:block; font-size:13px; letter-spacing:-.022em; color:#243f50; font-weight:750; margin:6px 0 2px;}
+.showcase-stat-grid small {display:block; color:#6d8491; font-size:9px;}
+.showcase-data-grid {display:grid; grid-template-columns:minmax(0,1.18fr) minmax(0,1fr); gap:10px; min-width:0;}
+.showcase-panel {background:white; border:1px solid var(--showcase-stroke); border-radius:8px; min-width:0; overflow:hidden;}
+.showcase-panel-heading {display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 12px 11px; border-bottom:1px solid #e8eef0;}
+.showcase-panel-heading b {display:block; font-size:11px; color:#273d4a; letter-spacing:-.01em;}
+.showcase-panel-heading div > span {display:block; font-size:9px; margin-top:3px; color:#7b8f99;}
+.showcase-panel-heading > span {font-size:9px; color:#50758a; white-space:nowrap;}
+.showcase-table-head {display:flex; justify-content:space-between; gap:8px; background:#f8fbfc; font-weight:800; color:#8a9aa2; font-size:8px; letter-spacing:.08em; padding:8px 12px;}
+.showcase-queue-row {display:flex; justify-content:space-between; gap:8px; align-items:center; padding:10px 12px; border-top:1px solid #f0f3f5;}
+.showcase-queue-row small {display:block; color:#82969f; font-size:8px; margin-bottom:3px;}
+.showcase-queue-row strong {display:block; font-size:10px; font-weight:700; line-height:1.35;}
+.showcase-status {display:inline-flex; justify-content:center; padding:4px 7px; border-radius:4px; font-size:8px; font-weight:bold; white-space:nowrap;}
+.showcase-status.is-amber {color:#89602a;background:#fbf0dd;}
+.showcase-status.is-blue {color:#305a8a;background:#eaf2fc;}
+.showcase-status.is-green {color:#34735b;background:#e8f7ee;}
+.showcase-rubric-label {font-weight:800; letter-spacing:.1em; color:#718692; font-size:8px; padding:14px 12px 0;}
+.showcase-rubric-copy {font-size:10px; color:#5a6e7c; line-height:1.6; padding:9px 12px 12px; max-width:none;}
+.showcase-evidence-excerpt {font-size:10px; line-height:1.6; color:#2f5466; background:#edf7fa; border-left:3px solid #75a4b9; border-radius:0 6px 6px 0; margin:0 12px 12px; padding:9px 11px;}
+.showcase-review-note {border-top:1px solid #edf0f1; padding:9px 12px; display:flex; align-items:center; gap:7px; font-weight:bold; font-size:9px; color:#65727d;}
+.showcase-review-dot {width:7px; height:7px; border-radius:50%; background:#e2bd78;}
+.showcase-product-footer {display:flex; justify-content:space-between; gap:12px; padding-top:11px; font-size:8px; color:#8296a0; font-weight:800; letter-spacing:.075em;}
+.showcase-product-footer span {font-weight:500; color:#6d828d; text-align:right; letter-spacing:0;}
+.portfolio-showcase figcaption {display:grid; grid-template-columns:auto minmax(0,1fr); align-items:baseline; gap:6px 12px; margin-top:11px; padding:0 2px; font-size:11px; color:#5d665c; line-height:1.55;}
+.portfolio-showcase figcaption strong {font-size:11px; color:#28352e;}
+.portfolio-showcase figcaption span {font-size:11px;}
+.showcase-gridflex {--showcase-ink:#23323b;}
+.showcase-gridflex .showcase-sidebar {background:#132b38;}
+.showcase-gridflex .showcase-app-brand > b {background:#c5e9cf;color:#1f503b;}
+.showcase-gridflex .showcase-side-link.chosen {background:#254f50;}
+.showcase-gridflex .showcase-kicker {color:#417c65;}
+.showcase-gridflex .showcase-stat-grid strong {color:#244838;}
+.showcase-gridflex .showcase-panel-heading > span {color:#4e806b;}
+.showcase-gridflex .showcase-app {background:#f6faf7;}
+.showcase-legend {display:flex;gap:16px; padding:8px 12px 0; flex-wrap:wrap; font-size:9px; color:#5b6e72;}
+.showcase-legend span {display:inline-flex; align-items:center; gap:5px;}
+.showcase-legend i {width:9px; height:9px; border-radius:2px; display:inline-block;}
+.showcase-legend .load {background:#43647a;}
+.showcase-legend .solar {background:#9fca9b;}
+.showcase-chart {height:117px; margin:17px 12px 0; padding:0 4px; display:flex; justify-content:space-between; align-items:flex-end; gap:5px; border-bottom:1px solid #cdd9d5; background:repeating-linear-gradient(to top,transparent 0,transparent 24%,#edf3f1 24%,#edf3f1 calc(24% + 1px),transparent calc(24% + 1px),transparent 25%);}
+.showcase-bar-column {height:100%; display:flex; flex:1 1 0; align-items:flex-end; justify-content:center; gap:3px; min-width:0;}
+.showcase-bar {display:block; width:42%; border-radius:3px 3px 0 0; min-height:3px;}
+.showcase-bar.load {background:#43647a;}
+.showcase-bar.solar {background:#9fca9b;}
+.showcase-chart-axis {display:flex; justify-content:space-between; padding:7px 12px 12px; font-size:8px; color:#7e918b;}
+.showcase-strategy {display:flex; justify-content:space-between; align-items:center; padding:9px 11px; border-bottom:1px solid #edf2ef; color:#5b756a;}
+.showcase-strategy.selected {background:#eff8f1; color:#306450;}
+.showcase-strategy b {display:block; font-size:10px;}
+.showcase-strategy small {display:block; font-size:8px; color:#788b81; margin-top:2px;}
+.showcase-strategy > span:last-child {font-size:16px;}
+.showcase-audit-label {padding:12px 11px 5px; font-size:8px; font-weight:800; letter-spacing:.08em; color:#779088;}
+.showcase-audit-checks {display:flex; padding:0 10px 13px; flex-wrap:wrap; gap:5px;}
+.showcase-audit-checks span {padding:5px 6px; font-size:8px; color:#567163; border:1px solid #d8e7dc; background:#f7fcf8; border-radius:4px;}
+/* Compact dashboard cards in the home project list. */
+.portfolio-showcase.showcase-compact {margin:0 0 2px;}
+.showcase-compact .showcase-app {display:block; min-height:0;}
+.showcase-compact .showcase-sidebar {display:none;}
+.showcase-compact .showcase-workspace {padding:0 12px 11px;}
+.showcase-compact .showcase-workspace-top {height:31px;}
+.showcase-compact .showcase-dashboard-title {padding:12px 0;}
+.showcase-compact .showcase-dashboard-title h3 {font-size:18px;}
+.showcase-compact .showcase-dashboard-title p {font-size:9px;}
+.showcase-compact .showcase-outline-label {display:none;}
+.showcase-compact .showcase-stat-grid {gap:6px;margin-bottom:9px;}
+.showcase-compact .showcase-stat-grid > div {padding:8px 7px;}
+.showcase-compact .showcase-stat-grid strong {font-size:10px;}
+.showcase-compact .showcase-stat-grid small {font-size:8px;}
+.showcase-compact .showcase-data-grid {grid-template-columns:1fr;}
+.showcase-compact .showcase-review,.showcase-compact .showcase-strategies {display:none;}
+.showcase-compact .showcase-queue-row {padding:7px 10px;}
+.showcase-compact .showcase-chart {height:72px;margin-top:9px;}
+.showcase-compact .showcase-product-footer {padding-top:8px;}
+.showcase-compact figcaption {display:block; margin-top:8px; font-size:10px;}
+.showcase-compact figcaption strong {display:block; font-size:10px;}
+.showcase-compact figcaption span {font-size:10px;}
+/* Avoid overflow in project card grid and in the case-study content column. */
+.project-evidence,.project-copy,.case-body,.showcase-workspace {min-width:0;}
+.project-evidence .portfolio-showcase {width:100%;}
+.case-body > .portfolio-showcase {margin-top:30px; margin-bottom:34px;}
+@media(max-width:1050px) {
+  .portfolio-showcase:not(.showcase-compact) .showcase-sidebar {display:none;}
+  .portfolio-showcase:not(.showcase-compact) .showcase-app {grid-template-columns:minmax(0,1fr);}
+}
+@media(max-width:700px) {
+  .portfolio-showcase:not(.showcase-compact) .showcase-data-grid {grid-template-columns:1fr;}
+  .portfolio-showcase:not(.showcase-compact) .showcase-dashboard-title h3 {font-size:21px;}
+  .portfolio-showcase:not(.showcase-compact) .showcase-workspace {padding:0 12px 14px;}
+  .portfolio-showcase figcaption {display:block;}
+  .portfolio-showcase figcaption strong {display:block;}
+  .showcase-chrome {padding:0 10px;}
+}
+@media(max-width:410px) {
+  .portfolio-showcase .showcase-dashboard-title p {font-size:9px;}
+  .portfolio-showcase .showcase-stat-grid {grid-template-columns:repeat(2,minmax(0,1fr));}
+  .portfolio-showcase .showcase-stat-grid > div:last-child {grid-column:1 / -1;}
+  .portfolio-showcase .showcase-outline-label {display:none;}
+  .portfolio-showcase .showcase-workspace-top {font-size:8px;}
+  .portfolio-showcase .showcase-product-footer {display:block;}
+  .portfolio-showcase .showcase-product-footer span {display:block; text-align:left; margin-top:3px;}
+  .portfolio-showcase .showcase-dashboard-title h3 {font-size:19px;}
+  .portfolio-showcase .showcase-status {white-space:normal; text-align:center;}
+}
+@media(prefers-reduced-motion:reduce) {
+  .portfolio-showcase *, .portfolio-showcase *::before, .portfolio-showcase *::after {animation:none!important;transition:none!important;}
+}
