@@ -1,29 +1,28 @@
-"""Fail if resume page count, factual boundaries or editable structure regress."""
+"""Verify recruiter-facing official PDF and repository-hosted public evidence."""
 from pathlib import Path
 from pypdf import PdfReader
-from docx import Document
+
 ROOT=Path(__file__).resolve().parents[1]
-for name in ['Yatharth_Goyal_Resume','Yatharth_Goyal_AI_ML_Resume']:
-    pdf=PdfReader(ROOT/'public/resume'/f'{name}.pdf')
-    assert len(pdf.pages)==1, f'{name}: expected one page'
-    text=' '.join(pdf.pages[0].extract_text().split())
-    for required in ['AegisED','EvalForge','Grid Flex','JECRC','Information Technology','2028','CGPA: 9.00/10.00']:
-        assert required in text, (name,required)
-    # Existing committed downloads remain legacy until the generated EduPredict PDFs are published.
-    # Validate both as an explicit transition; never confuse one with the other.
-    if 'EduPredict AI' in text:
-        assert 'RouteGuard' not in text, (name, 'outdated project')
-        project='EduPredict AI'
-    else:
-        assert 'RouteGuard' in text and '95%+' in text and 'Target not achieved.' in text, (name,'unexpected legacy resume')
-        project='RouteGuard (legacy binary)'
-    for forbidden in ['8.96','AI-900','AI-102','LIVE DEMO','Credentials withheld','WORK EXPERIENCE']:
-        assert forbidden not in text, (name,forbidden)
-    assert text.index('EDUCATION & CERTIFICATIONS')>text.index('EduPredict AI' if 'EduPredict AI' in text else 'RouteGuard')
-    links=[a.get_object().get('/A',{}).get('/URI') for a in pdf.pages[0].get('/Annots',[])]
-    assert len([u for u in links if u])>=5
-    doc=Document(ROOT/'public/resume'/f'{name}.docx')
-    assert not doc.tables and len(doc.paragraphs)>20
-    assert doc.styles['Normal'].font.size.pt>=10
-    assert doc.paragraphs[-1].text.endswith('CGPA: 9.00/10.00')
-    print(f'PASS {name}: 1 page, searchable text, {len(links)} hyperlinks, editable single column, project={project}')
+path=ROOT/'public/resume/Yatharth_Goyal_Resume.pdf'
+assert path.is_file() and path.stat().st_size>20_000, "Official PDF absent or too small"
+pdf=PdfReader(path)
+assert len(pdf.pages)==1,"Official resume must have exactly one page"
+page=pdf.pages[0]
+text=' '.join((page.extract_text() or '').split())
+for required in ['Software Engineer','PROFESSIONAL EXPERIENCE','Grras Solutions','AegisED','EvalForge','Grid Flex','EduPredict AI','CGPA: 9.00/10.00','Cert Prep']:
+    assert required in text, f"Missing official content: {required}"
+assert 'RouteGuard' not in text
+annotations=page.get('/Annots', [])
+uris=[]
+for annotation in annotations:
+    action=annotation.get_object().get('/A', {})
+    if action.get('/URI'):
+        uris.append(str(action['/URI']))
+assert len(uris)>=14, f"Expected clickable portfolio, projects and certificates, got {len(uris)}"
+assert not any('drive.google.com/' in uri for uri in uris), "Private Google Drive link remains"
+assert not any('evalforge-demo-free.onrender.com' in uri for uri in uris), "Unavailable EvalForge demo linked"
+assert not any(uri.endswith('/EvalForge') for uri in uris), "Private EvalForge repository linked"
+for filename in ['microsoft-ai102-course-prep.pdf','microsoft-ai900-course-prep.pdf','microsoft-linkedin-career-essentials-genai.pdf','google-simplilearn-generative-ai.pdf','ibm-python-101.pdf','analytics-vidhya-introduction-python.pdf','scaler-java-fundamentals.pdf']:
+    assert (ROOT/'public/certificates'/filename).is_file(), f"Missing certificate: {filename}"
+    assert any('/certificates/'+filename in uri for uri in uris), f"Certificate not linked: {filename}"
+print(f'PASS official recruiter PDF: one page, {len(uris)} clickable public links, seven stored completion PDFs')

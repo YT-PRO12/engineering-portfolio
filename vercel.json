@@ -3,5 +3,22 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "cleanUrls": false,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/resume/Yatharth_Goyal_Resume.docx",
+      "destination": "/resume/Yatharth_Goyal_Resume.pdf",
+      "permanent": false
+    },
+    {
+      "source": "/resume/Yatharth_Goyal_AI_ML_Resume.pdf",
+      "destination": "/resume/Yatharth_Goyal_Resume.pdf",
+      "permanent": false
+    },
+    {
+      "source": "/resume/Yatharth_Goyal_AI_ML_Resume.docx",
+      "destination": "/resume/Yatharth_Goyal_Resume.pdf",
+      "permanent": false
+    }
+  ]
 }

@@ -16,20 +16,30 @@ npx tsc --noEmit
 - `public/data.js`: factual project context, public evidence links and current education.
 - `src/App.tsx`: homepage, case studies, navigation, filters and download controls.
 - `styles.css`: responsive graphite/ivory visual system with reduced-motion support.
-- `scripts/build_resume_assets.py`: two editable single-column resumes and matching searchable PDFs.
-- `scripts/check_assets.py`: one-page, text, hyperlink, editability and factual regression gate.
-- `public/resume/`: linked Software Engineer resume (DOCX/PDF) plus archived AI/ML assets retained for backward compatibility.
+- `scripts/build_resume_assets.py`: archival source only; not used to publish the official uploaded resume.
+- `scripts/check_assets.py`: validates the exact official PDF and checks that public certificate links are present.
+- `public/resume/Yatharth_Goyal_Resume.pdf`: the canonical recruiter-facing PDF, with fixed public references.
 
-No employment or unverified certifications are claimed. EduPredict AI is a student-support decision aid; assessments and model outputs are not independently validated real-world dropout predictions. Project test numbers are documented local results, not portfolio-run tests.
+The **uploaded official resume** includes an internship and certification/training entries that have not been independently verified here; the website case-study content keeps its existing evidence boundaries. EduPredict AI is a student-support decision aid; assessments and model outputs are not independently validated real-world dropout predictions. Project test numbers are documented local results, not portfolio-run tests.
 
 See [QA results](QA_RESULTS.md), [evidence boundaries](EVIDENCE_CHANGES.md), [changes](CHANGELOG.md), and [deployment instructions](DEPLOYMENT.md). AegisED's actual repository screenshot is attributed in its case study; architecture diagrams are labeled conceptual.
 
 ## Software engineering focus
 
-The public portfolio presents a single Software Engineer career direction: Java, React, Node.js/Express, SQL, accessibility and backend reliability. AegisED is presented as a full-stack application using PostgreSQL (not MongoDB); its ML evaluation scores are intentionally not part of the recruiter-facing website. EvalForge emphasizes durable jobs and distributed backend workflows; EduPredict AI emphasizes React dashboards, FastAPI-backed assessment records and student-scoped intervention workflows. The public resume links only the Software Engineer variant.
+The public portfolio presents a single Software Engineer career direction: Java, React, Node.js/Express, SQL, accessibility and backend reliability. AegisED is presented as a full-stack application using PostgreSQL (not MongoDB); its ML evaluation scores are intentionally not part of the recruiter-facing website. EvalForge emphasizes durable jobs and distributed backend workflows; EduPredict AI emphasizes React dashboards, FastAPI-backed assessment records and student-scoped intervention workflows. The public resume panel links to the [latest user-supplied official Software Engineer PDF](https://yatharth-engineering-portfolio.vercel.app/resume/Yatharth_Goyal_Resume.pdf).
 
-After updates to `scripts/build_resume_assets.py`, regenerate the public SDE PDF/DOCX through the controlled build workflow and review the generated files before publication.
+Do not replace the official PDF by automatically generated résumé artifacts. Update the official PDF only after checking its annotations, evidence scope, and one-page layout.
+
+## Official resume
+
+[**View the current official Software Engineer resume (PDF)**](https://yatharth-engineering-portfolio.vercel.app/resume/Yatharth_Goyal_Resume.pdf)
+
+The official PDF was uploaded on November 3, 2026 and hosts its original certificate evidence as public assets under `public/certificates/`. The external Drive originals remain private and are not linked from the official PDF. Old generated Word/ML resumes are retired from the public portfolio.
 
 ## EduPredict AI dashboard showcase
 
 The homepage and EduPredict case study include a **clearly labeled illustrative dashboard** based on the actual React/Vite dashboard, FastAPI endpoints, and student assessment/intervention flows in `YT-PRO12/EduPredictAI`. The visible records are synthetic examples and should not be mistaken for real students, a live screenshot, or verified model performance. The previously published RouteGuard portfolio page was retired.
+
+## Link access policy
+
+Certificate completion PDFs are hosted publicly in `public/certificates/` to avoid owner-only Google Drive permissions. Course-prep certificates (AI-900/AI-102) are **course completion, not Microsoft certification exams**. Private EvalForge code and an unavailable live demo are intentionally replaced with the public EvalForge case study in the official PDF. This improves link access without claiming public access to private source code. 
