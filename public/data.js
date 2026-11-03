@@ -7,6 +7,8 @@ window.PORTFOLIO_DATA = {
   linkedin: 'https://www.linkedin.com/in/yatharth-goyal-ab0b8326/',
   leetcode: 'https://leetcode.com/u/yatharth_goyal/',
   codeforces: 'https://codeforces.com/profile/yatharthgoyal657',
+  education: {degree:'Bachelor of Technology (B.Tech) in Information Technology',institution:'JECRC',location:'Jaipur, Rajasthan, India',cgpa:'9.00/10.00',expectedGraduation:'2028'},
+  certifications: [], // Empty until issuer-issued credential URLs or files are verified.
   projects: [
     {
       id:'aegised', index:'01', category:'Systems', label:'FULL-STACK · SYSTEMS ENGINEERING',

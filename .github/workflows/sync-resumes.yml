@@ -1,0 +1,66 @@
+name: Sync verified portfolio resumes
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/sync-resumes.yml'
+      - 'scripts/build_resume_assets.py'
+      - 'src/App.tsx'
+      - 'public/data.js'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-commit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install resume generator dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'python-docx>=1.1,<2' 'pypdf>=5,<7'
+          if ! command -v libreoffice >/dev/null 2>&1; then
+            sudo apt-get update -qq
+            sudo apt-get install -y --no-install-recommends libreoffice-writer
+          fi
+      - name: Generate matching DOCX and PDF resumes
+        run: python scripts/build_resume_assets.py
+      - name: Verify one page and confirmed academic facts
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from pypdf import PdfReader
+          for filename in ['Yatharth_Goyal_Resume.pdf','Yatharth_Goyal_AI_ML_Resume.pdf']:
+              path=Path('public/resume')/filename
+              pdf=PdfReader(str(path))
+              assert len(pdf.pages)==1, f'{filename} has {len(pdf.pages)} pages'
+              text=' '.join(page.extract_text() or '' for page in pdf.pages)
+              assert 'CGPA: 9.00/10.00' in text, filename
+              assert '8.96' not in text, filename
+              assert 'EDUCATION & CERTIFICATIONS' in text, filename
+              assert '95%' in text, filename
+              print(f'PASS {filename}: one page, consistent academic facts')
+          PY
+      - name: Commit verified generated resume assets
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add public/resume/Yatharth_Goyal_Resume.pdf \
+                  public/resume/Yatharth_Goyal_Resume.docx \
+                  public/resume/Yatharth_Goyal_AI_ML_Resume.pdf \
+                  public/resume/Yatharth_Goyal_AI_ML_Resume.docx
+          if ! git diff --cached --quiet; then
+            git commit -m 'docs: sync one-page resumes with verified academic data'
+            git push origin HEAD:main
+          else
+            echo 'No resume asset changes required.'
+          fi
