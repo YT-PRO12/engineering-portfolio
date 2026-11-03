@@ -5,7 +5,7 @@ import DashboardPreview from "./DashboardPreview";
 const D = (window as any).PORTFOLIO_DATA;
 const projects = D.projects;
 const path = (id: string) => `/projects/${id}.html`;
-const resume = "/resume/Yatharth_Goyal_Resume";
+const resume = "https://drive.google.com/file/d/1pPOzUIJYmg51kNPHuExmy2VBvKdnPOqb/view";
 const arrow = <span aria-hidden="true">↗</span>;
 function External({ href, children, ...props }: any) {
   return (
@@ -188,16 +188,15 @@ function ResumeLinks() {
         <div>
           <p className="eyebrow">SOFTWARE ENGINEERING / ONE-PAGE PROFILE</p>
           <h2>The work, on one page.</h2>
-          <p>A focused resume covering Java, frontend and backend engineering, database integrity and delivery.</p>
+          <p>My latest one-page resume, with professional experience, backend systems and full-stack engineering projects.</p>
         </div>
         <div className="resume-options">
           <div className="resume-option">
             <p className="eyebrow">SDE / FULL STACK / BACKEND</p>
             <h3>Software Engineer Resume</h3>
-            <p>Java · React · Node.js / Express · PostgreSQL</p>
+            <p>Backend development · Distributed systems · Full-stack projects</p>
             <div>
-              <a href={resume + ".pdf"} download aria-label="Download Software Engineer resume PDF">Download PDF ↓</a>
-              <a href={resume + ".docx"} download aria-label="Download editable Software Engineer resume Word document">Editable Word ↓</a>
+              <a href={resume} target="_blank" rel="noopener noreferrer" aria-label="Open the latest official Software Engineer resume PDF">View latest PDF ↗</a>
             </div>
           </div>
         </div>
