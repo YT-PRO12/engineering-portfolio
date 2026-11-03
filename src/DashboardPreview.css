@@ -144,3 +144,17 @@
 @media(prefers-reduced-motion:reduce) {
   .portfolio-showcase *, .portfolio-showcase *::before, .portfolio-showcase *::after {animation:none!important;transition:none!important;}
 }
+
+/* EduPredict student-success interface: visual depiction with synthetic entries. */
+.showcase-edupredict .showcase-sidebar {background:#172c3a;}
+.showcase-edupredict .showcase-app-brand > b {background:#d5e7ff;color:#233c68;}
+.showcase-edupredict .showcase-side-link.chosen {background:#344f75;}
+.showcase-edupredict .showcase-kicker {color:#4c6d9c;}
+.showcase-edupredict .showcase-app {background:#f7f9fd;}
+.showcase-edupredict .showcase-stat-grid strong {color:#2b4674;}
+.showcase-edupredict .showcase-panel-heading > span {color:#4c6d9c;}
+.showcase-edu-steps {display:grid;gap:1px;margin:9px 12px 13px;border-radius:7px;overflow:hidden;background:#ecf1f7;}
+.showcase-edu-steps > div {display:grid;grid-template-columns:24px minmax(0,1fr);align-items:center;gap:2px 9px;padding:11px 9px;background:#f6f9fe;}
+.showcase-edu-steps > div > span {grid-row:span 2;display:grid;place-items:center;width:24px;height:24px;border-radius:6px;background:#e4ecfa;color:#476494;font-weight:800;font-size:9px;}
+.showcase-edu-steps b {font-size:10px;color:#243b65;}
+.showcase-edu-steps small {font-size:9px;color:#677d9a;}
