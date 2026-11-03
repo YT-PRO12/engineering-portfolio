@@ -1,74 +1,718 @@
-// Modern React/Vite TSX source; use npm run build to generate the production site.
-import React from "react";
+import React, { useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import "../styles.css";
-
-const DATA = (window as any).PORTFOLIO_DATA;
-const projects = DATA.projects;
-const resumePath = '/resume/Yatharth_Goyal_Resume.pdf';
-const mailLink = 'mailto:' + DATA.email + '?subject=Engineering%20opportunity';
-
-function Arrow({small=false}:any) { return <span className={'arrow-icon'+(small?' small':'')} aria-hidden="true">↗</span>; }
-function RevealTitle({eyebrow,title,copy}:any) { return <div className="section-intro"><p className="eyebrow">{eyebrow}</p><h2>{title}</h2>{copy && <p className="section-lead">{copy}</p>}</div>; }
-function External({href,children,className='',label}:any) {return <a href={href} target="_blank" rel="noopener noreferrer" className={className} aria-label={label}>{children}</a>}
-function LinkButton({href,children,primary=false,external=false,light=false}:any){const cls='button '+(primary?'button-primary':'button-outline')+(light?' button-light':''); return external?<External href={href} className={cls}>{children}<Arrow small/></External>:<a href={href} className={cls}>{children}<Arrow small/></a>}
-
-function ProjectVisual({project,compact=false}:any){
- const variant=project.visual;
- return <div className={'project-visual visual-'+variant+(compact?' compact':'')} aria-label={'Architecture visualization for '+project.title}>
-  {variant==='care' && <div className="product-window">
-    <div className="product-window-top"><span className="three-dots"><i/><i/><i/></span><span>Operations overview</span><span className="mock-tag">ARCHITECTURE</span></div>
-    <div className="care-mock-body"><div className="care-sidebar"><span className="tiny-glyph">✳</span><span>◫</span><span>▤</span><span>◉</span><span>▥</span></div><div className="care-area"><div className="mock-overline">AegisED / Workflow</div><div className="care-title">Resource allocation</div><div className="care-tiles"><div><b>Intake</b><span>Validated input</span></div><div><b>Allocate</b><span>Row-level lock</span></div><div><b>Review</b><span>Human decision</span></div></div><div className="care-timeline"><span/><span/><span/><span/></div><div className="care-strip"><span>Case state</span><strong>Transaction safe</strong></div></div></div>
-  </div>}
-  {variant==='eval' && <div className="eval-diagram"><div className="diagram-kicker">AUDITABLE ASSESSMENT FLOW</div><div className="eval-step s1"><small>01 / INPUT</small><strong>Submission + rubric</strong><span>Versioned criteria</span></div><div className="eval-line"/><div className="eval-branch"><div className="eval-step s2"><small>02 / PROCESS</small><strong>Durable job</strong><span>Postgres + BullMQ</span></div><div className="eval-step s3"><small>03 / EVIDENCE</small><strong>Criterion spans</strong><span>Exact text matches</span></div></div><div className="eval-line"/><div className="eval-step s4"><small>04 / HUMAN CHECK</small><strong>Review · Override · Release</strong><span>Instructor decision</span></div></div>}
-  {variant==='grid' && <div className="grid-diagram"><div className="diagram-kicker">OPTIMIZATION PIPELINE</div><div className="energy-header"><span>Industrial dispatch / synthetic</span><span className="energy-led">MILP</span></div><div className="energy-chart" aria-hidden="true"><div className="chart-columns">{[29,38,55,64,43,59,84,73,66,94,78,62,47,55,72].map((x,i)=><div key={i} className="chart-col" style={{height:x+'%'}}><span /></div>)}</div><div className="chart-axis">06:00 <span>12:00</span> <span>18:00</span> 22:00</div></div><div className="energy-footer"><div><span className="energy-dot d1"/> Solar PV</div><div><span className="energy-dot d2"/> Grid power</div><div><span className="energy-dot d3"/> Battery</div></div><div className="energy-caption">Three objectives. Independent constraint audit.</div></div>}
-  {variant==='route' && <div className="route-diagram"><div className="diagram-kicker">CONCEPTUAL ROUTE LAYER · NOT LIVE DATA</div><div className="map-grid"><svg viewBox="0 0 500 270" role="img" aria-label="Illustrative route lines on a road grid"><g stroke="#82919b" strokeWidth="2" opacity=".22"><path d="M0 36H500M0 89H500M0 146H500M0 198H500M0 245H500M48 0V270M124 0V270M194 0V270M266 0V270M338 0V270M423 0V270"/><path d="M0 170L180 0M210 270L410 0M400 270L500 155"/></g><path d="M63 207L124 198L194 146L266 146L338 89L424 60" fill="none" stroke="#bfd9a6" strokeWidth="7" strokeLinecap="round" strokeLinejoin="round"/><path d="M63 207L124 146L194 146L266 89L338 89L424 60" fill="none" stroke="#8fa5d5" strokeWidth="3" strokeLinecap="round" strokeDasharray="6 10" opacity=".8"/><circle cx="63" cy="207" r="11" fill="#cde9ab" stroke="#16222b" strokeWidth="5"/><circle cx="424" cy="60" r="11" fill="#cde9ab" stroke="#16222b" strokeWidth="5"/><circle cx="252" cy="146" r="8" fill="#ed9b89" stroke="#16222b" strokeWidth="3"/><circle cx="335" cy="89" r="8" fill="#ed9b89" stroke="#16222b" strokeWidth="3"/></svg></div><div className="route-legend"><span><i className="l1"/> Risk-aware research</span><span><i className="l2"/> Route alternative</span></div></div>}
- </div>;
+const D = (window as any).PORTFOLIO_DATA;
+const projects = D.projects;
+const path = (id: string) => `/projects/${id}.html`;
+const resume = "/resume/Yatharth_Goyal_Resume";
+const ml = "/resume/Yatharth_Goyal_AI_ML_Resume";
+const arrow = <span aria-hidden="true">↗</span>;
+function External({ href, children, ...props }: any) {
+  return (
+    <a href={href} target="_blank" rel="noopener noreferrer" {...props}>
+      {children}
+      {arrow}
+    </a>
+  );
 }
-
-function Nav({isProject=false}:any) {
- return <header className="top-nav" id="top"><div className="nav-inner wrap"><a className="brand" href="/index.html" aria-label="Yatharth Goyal, home"><span className="brand-symbol">YG<span>.</span></span><span className="brand-copy">YATHARTH<br/>GOYAL</span></a>
- <nav className="nav-links" aria-label="Main navigation"><a href="/index.html#skills">Skills</a><a href="/index.html#work">Projects</a><a href="/index.html#dsa">Java DSA</a><a href="/index.html#education">Education</a><a href="/index.html#contact">Contact</a></nav>
- <div className="nav-actions"><a className="nav-resume" href={resumePath} download>Resume <span aria-hidden="true">↓</span></a><button className="mobile-menu-button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="mobile-nav" onClick={(e:any)=>{const nav=document.getElementById('mobile-nav');let open=nav?.classList.toggle('open');e.currentTarget.setAttribute('aria-expanded',String(!!open));}}> <span/><span/><span/></button></div></div>
- <nav className="mobile-menu" id="mobile-nav" aria-label="Mobile navigation"><a href="/index.html#skills">Technical skills</a><a href="/index.html#work">Selected work</a><a href="/index.html#dsa">Java DSA</a><a href="/index.html#education">Education &amp; certifications</a><a href="/index.html#contact">Contact</a><a href={resumePath} download>Download resume ↓</a></nav>
- </header>
+const decisions: any = {
+  aegised: {
+    title: "Protect the allocation, inside the transaction.",
+    focus: "Concurrency & integrity",
+    proof: "0.7893 macro-F1",
+    scope: "900 held-out synthetic cases · non-clinical",
+    reason:
+      "Competing operators can request the same doctor or bed. PostgreSQL transactions and row locks keep resource assignment and workflow state consistent.",
+    tradeoff:
+      "Locking belongs in the database; API authorization and audit events protect the surrounding workflow. ML recommendations remain subject to human review.",
+    nodes: ["Request", "Row lock", "Assign", "Commit"],
+    invariant: "One resource. One consistent allocation.",
+  },
+  evalforge: {
+    title: "Persist the work before dispatching it.",
+    focus: "Durability & human review",
+    proof: "15 + 7 local checks",
+    scope: "Backend + evaluator · reported in project documentation",
+    reason:
+      "A retry or worker failure should not lose a submission or silently duplicate a grading decision. PostgreSQL keeps durable jobs while BullMQ coordinates asynchronous execution.",
+    tradeoff:
+      "Separating persistence from dispatch adds recovery paths to manage. Criterion-linked answer spans and instructor overrides keep evaluation inspectable.",
+    nodes: ["Submission", "Durable job", "Worker", "Review"],
+    invariant: "Evidence travels with every assessment.",
+  },
+  "grid-flex": {
+    title: "A solver result still needs an independent audit.",
+    focus: "Optimization & verification",
+    proof: "52 / 52 local tests",
+    scope: "Documented regression suite · synthetic scenarios",
+    reason:
+      "An attractive cost or carbon objective is insufficient if a schedule violates physical or production constraints. An independent verifier checks the solution after optimization.",
+    tradeoff:
+      "Cost, balanced and carbon objectives expose different choices. Power balance, state-of-charge and deadline checks constrain those choices before scenario stress analysis.",
+    nodes: ["Scenario", "MILP solve", "Audit", "Compare"],
+    invariant: "Feasibility before an objective value.",
+  },
+  routeguard: {
+    title: "Audit the data before trusting the detector.",
+    focus: "Computer vision & geospatial research",
+    proof: "95%+ research target",
+    scope: "Precision AND recall per severe-hazard class · not achieved",
+    reason:
+      "Road-damage labels contain uncertainty, and the four-class baseline does not cover all severe hazards. Empty-label review and split-leakage checks are part of the evaluation work.",
+    tradeoff:
+      "The historical baseline is evidence for a limited validation set, not a road-safety guarantee. Broader severe-hazard coverage and independent evaluation remain open work.",
+    nodes: ["Label audit", "YOLO eval", "PostGIS", "Routes"],
+    invariant: "In progress. Target not achieved.",
+  },
+};
+function Nav() {
+  const [open, setOpen] = useState(false);
+  const button = useRef<HTMLButtonElement>(null);
+  const links = [
+    ["work", "Work"],
+    ["skills", "Expertise"],
+    ["dsa", "Java DSA"],
+    ["contact", "Contact"],
+  ];
+  return (
+    <header
+      id="top"
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          setOpen(false);
+          button.current?.focus();
+        }
+      }}
+    >
+      <div className="wrap nav">
+        <a
+          className="brand"
+          href="/index.html"
+          aria-label="Yatharth Goyal home"
+        >
+          yg<span>.</span>
+          <small>
+            YATHARTH GOYAL
+            <br />
+            ENGINEERING PORTFOLIO
+          </small>
+        </a>
+        <nav aria-label="Main navigation" className="desktop-nav">
+          {links.map(([id, label]) => (
+            <a key={id} href={"/index.html#" + id}>
+              {label}
+            </a>
+          ))}
+        </nav>
+        <a className="nav-resume" href="/index.html#resumes">
+          Resumes ↓
+        </a>
+        <button
+          ref={button}
+          className="menu-toggle"
+          aria-expanded={open}
+          aria-controls="mobile-nav"
+          onClick={() => setOpen(!open)}
+        >
+          {open ? "Close" : "Menu"}{" "}
+          <span aria-hidden="true">{open ? "−" : "+"}</span>
+        </button>
+      </div>
+      <nav
+        id="mobile-nav"
+        aria-label="Mobile navigation"
+        hidden={!open}
+        onKeyDown={(e) => {
+          if (e.key === "Escape") {
+            setOpen(false);
+            button.current?.focus();
+          }
+        }}
+      >
+        {[...links, ["resumes", "Resumes"], ["education", "Education"]].map(
+          ([id, label]) => (
+            <a
+              key={id}
+              href={"/index.html#" + id}
+              onClick={() => setOpen(false)}
+            >
+              {label} {arrow}
+            </a>
+          ),
+        )}
+      </nav>
+    </header>
+  );
 }
-function Footer(){return <footer className="footer"><div className="wrap footer-inner"><span className="footer-symbol">YG<span>.</span></span><div><strong>Built with intention.</strong><p>© 2026 Yatharth Goyal · Jaipur, India</p></div><div className="footer-links"><External href={DATA.github}>GitHub <Arrow small/></External><External href={DATA.linkedin}>LinkedIn <Arrow small/></External><External href={DATA.codeforces}>Codeforces <Arrow small/></External><a href="#top">Back to top ↑</a></div></div></footer>}
-
-class Home extends React.Component<any,any> {
- constructor(props:any){super(props);this.state={filter:'All',emailCopied:false};this.copyEmail=this.copyEmail.bind(this)}
- async copyEmail(){try{await navigator.clipboard.writeText(DATA.email);this.setState({emailCopied:true});window.setTimeout(()=>this.setState({emailCopied:false}),2200)}catch(_){window.location.href=mailLink}}
- render(){let filtered=projects.filter(p=>this.state.filter==='All'||p.category===this.state.filter);
- return <><Nav/><main id="main">
- <section className="hero"><div className="hero-glow" aria-hidden="true"/><div className="wrap hero-content"><div className="hero-copy"><div className="kicker"><span className="kicker-dot"/> SOFTWARE ENGINEER IN THE MAKING · INDIA</div><h1>Engineering<br/>beyond <span>the demo.</span></h1><p className="hero-lead">I'm <strong>Yatharth</strong> — a Java-first developer building reliable software, thoughtful interfaces and applied AI systems that can be inspected, tested and improved.</p><div className="hero-actions"><LinkButton href="#work" primary>Explore selected work</LinkButton><LinkButton href={resumePath} light>Download resume</LinkButton></div><div className="hero-footnote"><span className="indicator"/> B.Tech IT · JECRC · Expected 2028 <i/> Jaipur, India</div></div>
- <div className="hero-art" aria-hidden="true"><div className="art-grid"/><div className="art-topline"><span>HOW THE PIECES CONNECT</span><span>SYS / 001</span></div><div className="system-wheel"><div className="wheel-ring r1"/><div className="wheel-ring r2"/><div className="wheel-ring r3"/><div className="wheel-core"><span>YG</span><small>ENGINEERING</small></div><div className="wheel-node node-one"><span>01</span><strong>Java</strong><small>Logic</small></div><div className="wheel-node node-two"><span>02</span><strong>APIs</strong><small>Systems</small></div><div className="wheel-node node-three"><span>03</span><strong>AI</strong><small>Signals</small></div><div className="wheel-node node-four"><span>04</span><strong>UI</strong><small>Experience</small></div></div><div className="art-bottomline"><span><span className="green-small-dot"/> THINK · BUILD · TEST · ITERATE</span><span>PORTFOLIO / 2026</span></div></div></div>
- <div className="wrap hero-bottom"><div className="hero-bottom-label">THE WORK IS IN THE DETAILS</div><div>BACKEND RELIABILITY <span>•</span> APPLIED INTELLIGENCE <span>•</span> RESPONSIBLE DELIVERY</div></div></section>
- <section className="skills-section" id="skills"><div className="wrap"><RevealTitle eyebrow="01 / TECHNICAL SKILLS" title={<>Depth over noise<span className="heading-dot">.</span></>} copy="Core technologies used across my engineering projects and Java practice. Not a claim of expertise in every possible tool."/><div className="skills-layout"><div className="skill-feature"><span className="skill-feature-icon">J</span><div><p className="eyebrow">PRIMARY LANGUAGE</p><h3>Java</h3><p>Data structures, algorithms and systematic problem solving. A public 16-topic DSA roadmap documents 161 LeetCode problem implementations, which represent repository coverage—not verified accepted submissions.</p><External href="https://github.com/YT-PRO12/DSA-Java-Interview-Prep" className="text-link">Explore Java repository <Arrow small/></External></div></div><div className="skill-groups">{[
- ['BACKEND & SYSTEMS','Node.js','Express','PostgreSQL','Redis / BullMQ','REST APIs','Transactions & RBAC'],
- ['FRONTEND','JavaScript','React','Vite','Tailwind CSS','Accessible UI'],
- ['APPLIED AI & DATA','Python','FastAPI','scikit-learn','YOLO','NumPy / pandas','SciPy / HiGHS'],
- ['QUALITY & DELIVERY','Git / GitHub','Docker','pytest','GitHub Actions','Playwright','AWS SAM (templates)']
- ].map(group=><div className="skill-group" key={group[0]}><h4>{group[0]}</h4><div>{group.slice(1).map(item=><span key={item}>{item}</span>)}</div></div>)}</div></div></div></section>
- <section className="work-section" id="work"><div className="wrap"><div className="work-heading"><RevealTitle eyebrow="02 / SELECTED ENGINEERING PROJECTS" title={<>Selected work<span className="heading-dot">.</span></>} copy="Four projects. Different domains. One recurring principle: engineering decisions should be explainable and verifiable."/><div className="work-count"><strong>04</strong><span>SELECTED<br/>PROJECTS</span></div></div><div className="filter-row" role="group" aria-label="Filter projects by category">{['All','Systems','Optimization','Applied AI'].map(f=><button key={f} type="button" className={'filter-button '+(this.state.filter===f?'active':'')} onClick={()=>this.setState({filter:f})} aria-pressed={this.state.filter===f}>{f==='All'?'All work':f}</button>)}<span className="filter-total" aria-live="polite">{filtered.length.toString().padStart(2,'0')} shown</span></div><div className="project-grid">{filtered.map(p=><a key={p.id} className="project-card" href={'/projects/'+(p.id==='grid-flex'?'grid-flex':p.id)+'.html'}><div className="project-card-top"><span>{p.index} / {p.label}</span><span className={'state-dot '+p.statusTone}>{p.status}</span></div><ProjectVisual project={p} compact/><div className="project-card-body"><div><h3>{p.title}<Arrow/></h3><p className="project-subtitle">{p.subtitle}</p><p className="project-desc">{p.short}</p></div><div className="project-card-footer"><div className="techs">{p.stack.slice(0,4).map(s=><span key={s}>{s}</span>)}</div><span className="read-story">View case study <Arrow small/></span></div></div></a>)}</div><p className="section-footnote">Engineering details and limitations are disclosed in each case study. Unverified outcomes are not presented as production achievements.</p></div></section>
- <section className="principles-section" id="about"><div className="wrap principles-layout"><div><p className="eyebrow light">03 / ENGINEERING APPROACH</p><h2>Software should<br/>stand up to <em>questions.</em></h2><p className="principles-lead">I gravitate toward work where correctness matters: concurrent operations, recoverable jobs, mathematical constraints and model evaluation that makes room for uncertainty.</p><LinkButton href="/projects/aegised.html" light>See the systems thinking</LinkButton></div><div className="principle-list">{[
- ['01','Model the invariants','Treat correctness as a design constraint, not a final QA step.'],
- ['02','Make behavior observable','Use evidence, tests and clear failure states instead of black boxes.'],
- ['03','Build for the user','Turn complex engineering into workflows that people can understand.'],
- ['04','Be explicit about limits','A research target is not a result. A deployment template is not a deployment.']
- ].map(x=><div className="principle" key={x[0]}><span>{x[0]}</span><div><h3>{x[1]}</h3><p>{x[2]}</p></div><Arrow small/></div>)}</div></div></section>
-
- <section className="dsa-section" id="dsa"><div className="wrap"><div className="dsa-layout"><div><p className="eyebrow">04 / PROBLEM SOLVING</p><h2>Java, algorithms<br/>&amp; deliberate practice<span className="heading-dot">.</span></h2><p className="dsa-lead">A structured 16-topic study repository covering arrays, hashing, sliding windows, binary search, linked lists, heaps, trees and backtracking. The repository documents implementation coverage; it does not imply accepted LeetCode submissions or contest rankings.</p><External href="https://github.com/YT-PRO12/DSA-Java-Interview-Prep" className="text-link">Explore the Java DSA repository <Arrow small/></External></div><div className="dsa-detail"><span className="eyebrow">OPEN SOURCE PRACTICE</span><strong>16 topics</strong><p>Runnable Java solutions, documented patterns, edge-case reasoning and a repeatable verification workflow.</p><div className="dsa-pills"><span>Java</span><span>Data structures</span><span>Algorithms</span><span>Complexity analysis</span></div><External href={DATA.codeforces} className="text-link">Codeforces profile <Arrow small/></External></div></div></div></section>
-
- <section className="education-section" id="education"><div className="wrap edu-inner"><div><p className="eyebrow">05 / EDUCATION &amp; CREDENTIALS</p><h2>Engineering foundations.<br/>Continual growth.</h2><p className="edu-intro">Academic progress and issuer-verifiable qualifications, presented without inflated awards or examination claims.</p></div><div className="edu-copy"><p className="edu-type">EDUCATION</p><h3>{DATA.education.degree}</h3><p>{DATA.education.institution} · {DATA.education.location}</p><div className="edu-line"><span>CGPA</span><strong>{DATA.education.cgpa}</strong></div><div className="edu-line"><span>Expected graduation</span><strong>{DATA.education.expectedGraduation}</strong></div><div className="credential-panel"><p className="edu-type">CERTIFICATIONS</p>{DATA.certifications.length ? <ul className="credential-list">{DATA.certifications.map((c:any)=><li key={c.title}><strong>{c.title}</strong><span>{c.issuer} · {c.issued}</span><External href={c.url}>Verify credential <Arrow small/></External></li>)}</ul>:<p className="credential-empty">Issuer-issued evidence is pending. No IBM, Microsoft or Azure examination certifications are claimed without verifiable credentials.</p>}</div></div></div></section>
- <section className="contact-section" id="contact"><div className="wrap contact-inner"><p className="eyebrow light">06 / LET'S CONNECT</p><h2>Have an interesting<br/><em>engineering problem?</em></h2><p>I'm interested in software engineering internships, backend systems and thoughtful applied-AI projects. Start a conversation.</p><div className="contact-actions"><a href={mailLink} className="button button-primary">Get in touch <Arrow small/></a><button className="button button-outline button-light" type="button" onClick={this.copyEmail}>{this.state.emailCopied?'Email copied ✓':'Copy email'} <span aria-hidden="true">⧉</span></button></div><a className="contact-email" href={'mailto:'+DATA.email}>{DATA.email}</a></div></section>
- </main><Footer/></>}
+function Diagram({ p }: any) {
+  const x = decisions[p.id];
+  return (
+    <figure className={"diagram diagram-" + p.id}>
+      <figcaption>
+        CONCEPTUAL ARCHITECTURE <span>/{p.index}</span>
+      </figcaption>
+      <div className="diagram-nodes">
+        {x.nodes.map((n: string, i: number) => (
+          <div className="diagram-node" key={n}>
+            <small>0{i + 1}</small>
+            <strong>{n}</strong>
+            {i < 3 && (
+              <span className="connector" aria-hidden="true">
+                →
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+      <p>{x.invariant}</p>
+    </figure>
+  );
 }
-
-function ProjectPage({id}:any){const project=projects.find((p:any)=>p.id===id);if(!project)return <><Nav/><main id="main" className="notfound"><h1>Project not found.</h1><a href="/index.html#work">Back to selected work</a></main><Footer/></>;
- let other=projects.filter((p:any)=>p.id!==id).slice(0,2);
- return <><Nav isProject/><main id="main"><section className="case-hero"><div className="wrap"><a className="back-link" href="/index.html#work">← Back to selected work</a><div className="case-label-row"><span className="eyebrow light">CASE STUDY / {project.index}</span><span className={'state-dot '+project.statusTone}>{project.status}</span></div><h1>{project.title}<span className="heading-dot">.</span></h1><p className="case-headline">{project.subtitle}</p><p className="case-lead">{project.short}</p><div className="case-buttons">{project.repo&&<External href={project.repo} className="button button-primary">Source repository <Arrow small/></External>}{project.demo&&<External href={project.demo} className="button button-outline button-light">Documented demo <Arrow small/></External>}{!project.repo&&<span className="private-repo-note">Private / local source — no public repository link</span>}</div><div className="case-stack">{project.stack.map((s:any)=><span key={s}>{s}</span>)}</div></div></section><section className="case-content"><div className="wrap case-grid"><div className="case-main"><div className="case-visual-wrap"><ProjectVisual project={project}/><div className="figure-caption">Architecture illustration · not a product screenshot or runtime benchmark</div></div><div className="case-section"><p className="eyebrow">THE CONTEXT</p><h2>What this project tackles</h2><p>{project.overview}</p></div><div className="case-section"><p className="eyebrow">THE CHALLENGE</p><h2>Designing for the hard parts</h2><p>{project.problem}</p></div><div className="case-section"><p className="eyebrow">ENGINEERING WORK</p><h2>Key decisions & contributions</h2><div className="case-items">{project.contribution.map((s:any,i:any)=><div key={i}><span>{String(i+1).padStart(2,'0')}</span><p>{s}</p></div>)}</div></div><div className="case-section"><p className="eyebrow">TRANSPARENT VERIFICATION</p><h2>What the evidence supports</h2><div className="case-items proof">{project.evidence.map((s:any,i:any)=><div key={i}><span>✓</span><p>{s}</p></div>)}</div></div><div className="case-limit"><p className="eyebrow">KNOWN LIMITATIONS</p><p>{project.limits}</p></div></div><aside className="case-sidebar"><div className="sidebar-block"><span className="eyebrow">SYSTEM ARCHITECTURE</span><ol>{project.architecture.map((a:any,i:any)=><li key={i}><div className="architect-step">{String(i+1).padStart(2,'0')}</div><div><strong>{a[0]}</strong><p>{a[1]}</p></div></li>)}</ol></div><div className="sidebar-block"><span className="eyebrow">SOURCE EVIDENCE</span>{project.source.length>0?<div className="source-links">{project.source.map((x:any,i:any)=><External key={i} href={x[1]}>{x[0]} <Arrow small/></External>)}</div>:<p className="aside-note">{project.id==='evalforge'?'Repository is private; source was reviewed through authorized access but is not published here.':'Local project sources and reports must be reviewed before a public case study can claim final verification.'}</p>}</div>{project.id==='aegised'&&<div className="sidebar-block"><span className="eyebrow">ACTUAL SCREENSHOT</span><a className="screenshot-link" href="https://github.com/YT-PRO12/AegisED/blob/main/docs/screenshots/dashboard-desktop.png" target="_blank" rel="noopener noreferrer">Open repository dashboard capture <Arrow small/></a><small className="source-note">Screenshot provided by the public repository; not recreated.</small></div>}</aside></div></section><section className="more-work"><div className="wrap"><h2>Keep exploring<span className="heading-dot">.</span></h2><div className="more-grid">{other.map((p:any)=><a key={p.id} href={'/projects/'+p.id+'.html'}><small>{p.label}</small><strong>{p.title}</strong><span>View case study <Arrow small/></span></a>)}</div></div></section><section className="case-cta"><div className="wrap"><h2>Want the one-page version?</h2><LinkButton href={resumePath} primary>Download resume</LinkButton></div></section></main><Footer/></>;
+function Footer() {
+  return (
+    <footer>
+      <div className="wrap footer-inner">
+        <a href="/index.html" className="wordmark">
+          Yatharth Goyal<span>.</span>
+        </a>
+        <span>Jaipur, India · 2026</span>
+        <a href="#top">Back to top ↑</a>
+      </div>
+    </footer>
+  );
 }
-const pathname=window.location.pathname;
-const slug=(pathname.split('/').pop()||'').replace('.html','');
-const projectId=slug==='grid-flex'?'grid-flex':slug;
-createRoot(document.getElementById('root')!).render(projects.some((p:any)=>p.id===projectId)?<ProjectPage id={projectId}/>:<Home/>);
+function ResumeLinks() {
+  return (
+    <section id="resumes" className="resume-section">
+      <div className="wrap resume-layout">
+        <div>
+          <p className="eyebrow">THE ONE-PAGE VERSION</p>
+          <h2>Choose your lens.</h2>
+          <p>Two focused resumes. The same engineering foundations.</p>
+        </div>
+        <div className="resume-options">
+          {[
+            ["SDE / Backend", resume, "Java · APIs · reliable workflows"],
+            ["AI / ML", ml, "Evaluation · computer vision · optimization"],
+          ].map(([title, file, sub]) => (
+            <div className="resume-option" key={title}>
+              <h3>{title}</h3>
+              <p>{sub}</p>
+              <div>
+                <a
+                  href={file + ".pdf"}
+                  download
+                  aria-label={"Download " + title + " PDF"}
+                >
+                  PDF ↓
+                </a>
+                <a
+                  href={file + ".docx"}
+                  download
+                  aria-label={"Download " + title + " editable Word resume"}
+                >
+                  Editable Word ↓
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+function Home() {
+  const [filter, setFilter] = useState("All");
+  const [copied, setCopied] = useState("");
+  const filtered = projects.filter(
+    (p: any) => filter === "All" || filter === p.category,
+  );
+  return (
+    <>
+      <Nav />
+      <main id="main" tabIndex={-1}>
+        <section className="hero">
+          <div className="wrap">
+            <div className="hero-meta">
+              <span>
+                <i /> JAVA-FIRST DEVELOPER
+              </span>
+              <span>JAIPUR, INDIA / 2026</span>
+            </div>
+            <div className="hero-layout">
+              <div>
+                <p className="intro-name">Hi, I'm Yatharth.</p>
+                <h1>
+                  Thoughtful systems.
+                  <br />
+                  <em>Visible proof.</em>
+                </h1>
+                <p className="hero-lead">
+                  I build backend workflows and applied AI projects around the
+                  hard parts: concurrent state, recoverable jobs, and evidence
+                  you can inspect.
+                </p>
+                <div className="actions">
+                  <a className="button primary" href="#work">
+                    Explore the work <span>↘</span>
+                  </a>
+                  <a className="button secondary" href="#resumes">
+                    Get my resume ↓
+                  </a>
+                </div>
+              </div>
+              <aside className="hero-index" aria-label="Project index">
+                <div className="index-head">
+                  FOUR ENGINEERING STUDIES <span>01—04</span>
+                </div>
+                {projects.map((p: any) => (
+                  <a href={path(p.id)} key={p.id}>
+                    <span className="index-number">{p.index}</span>
+                    <div>
+                      <strong>{p.title}</strong>
+                      <small>{decisions[p.id].focus}</small>
+                    </div>
+                    {arrow}
+                  </a>
+                ))}
+                <p>Independent projects · documented decisions</p>
+              </aside>
+            </div>
+            <div className="hero-baseline">
+              <span>BACKEND SYSTEMS</span>
+              <span>APPLIED INTELLIGENCE</span>
+              <span>JAVA & ALGORITHMS</span>
+              <a href="#contact">Open to internship conversations ↗</a>
+            </div>
+          </div>
+        </section>
+        <section id="skills" className="expertise">
+          <div className="wrap expertise-grid">
+            <div>
+              <p className="eyebrow">01 / ENGINEERING TOOLKIT</p>
+              <h2>
+                Built on
+                <br />
+                strong fundamentals.
+              </h2>
+            </div>
+            {[
+              [
+                "Backend",
+                "Java · Node.js · Express",
+                "PostgreSQL · Redis / BullMQ",
+                "Transactions, role protection and durable jobs.",
+              ],
+              [
+                "Applied AI",
+                "Python · FastAPI · scikit-learn",
+                "YOLO · SciPy / HiGHS",
+                "Model evaluation, data audits and optimization.",
+              ],
+              [
+                "Interface & delivery",
+                "React · Vite · JavaScript",
+                "Git · Docker · pytest",
+                "Clear workflows and repeatable local checks.",
+              ],
+            ].map(([title, a, b, c]) => (
+              <div className="expertise-item" key={title}>
+                <h3>{title}</h3>
+                <p>
+                  {a}
+                  <br />
+                  {b}
+                </p>
+                <small>{c}</small>
+              </div>
+            ))}
+          </div>
+        </section>
+        <section id="work" className="work">
+          <div className="wrap">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">02 / SELECTED WORK</p>
+                <h2>Engineering, in context.</h2>
+              </div>
+              <p>
+                Four domains. Four different constraints.
+                <br />
+                Explore the decisions behind each build.
+              </p>
+            </div>
+            <div className="filters" role="group" aria-label="Filter projects">
+              {["All", "Systems", "Optimization", "Applied AI"].map((f) => (
+                <button
+                  key={f}
+                  aria-pressed={filter === f}
+                  onClick={() => setFilter(f)}
+                >
+                  {f === "All" ? "All work" : f}
+                </button>
+              ))}
+              <span aria-live="polite">{filtered.length} projects</span>
+            </div>
+            <div className="projects">
+              {filtered.map((p: any) => (
+                <article key={p.id} className="project">
+                  <div className="project-copy">
+                    <div className="project-meta">
+                      <span>
+                        {p.index} / {p.category}
+                      </span>
+                      <span className="status">{p.status}</span>
+                    </div>
+                    <h3>
+                      <a href={path(p.id)}>
+                        {p.title} {arrow}
+                      </a>
+                    </h3>
+                    <p className="project-subtitle">{decisions[p.id].title}</p>
+                    <p className="project-description">{p.short}</p>
+                    <div className="tags">
+                      {p.stack.slice(0, 4).map((s: string) => (
+                        <span key={s}>{s}</span>
+                      ))}
+                    </div>
+                    <a className="text-link" href={path(p.id)}>
+                      Read the case study {arrow}
+                    </a>
+                  </div>
+                  <div className="project-evidence">
+                    <Diagram p={p} />
+                    <div className="evidence-strip">
+                      <strong>{decisions[p.id].proof}</strong>
+                      <span>{decisions[p.id].scope}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+            <p className="scope-note">
+              Results shown here come from project documentation. Their scope
+              and limitations accompany each case study.
+            </p>
+          </div>
+        </section>
+        <section id="dsa" className="dsa">
+          <div className="wrap dsa-grid">
+            <div>
+              <p className="eyebrow">03 / PROBLEM SOLVING</p>
+              <h2>
+                Java is where
+                <br />I sharpen the logic.
+              </h2>
+              <p>
+                A 16-topic interview roadmap: arrays, hashing, sliding windows,
+                linked lists, heaps, trees and backtracking. Implementation
+                coverage is documented in the repository.
+              </p>
+              <External
+                className="text-link"
+                href="https://github.com/YT-PRO12/DSA-Java-Interview-Prep"
+              >
+                Explore the Java repository{" "}
+              </External>
+            </div>
+            <div className="dsa-notes">
+              <p>
+                <span>01</span> Recognize the pattern.
+              </p>
+              <p>
+                <span>02</span> Reason about edge cases.
+              </p>
+              <p>
+                <span>03</span> Explain the complexity.
+              </p>
+              <div>
+                <External href={D.leetcode}>LeetCode </External>
+                <External href={D.codeforces}>Codeforces </External>
+              </div>
+              <small>
+                Profile links and repository coverage are not verified
+                submission counts or contest rankings.
+              </small>
+            </div>
+          </div>
+        </section>
+        <ResumeLinks />
+        <section id="education" className="education">
+          <div className="wrap education-grid">
+            <div>
+              <p className="eyebrow">04 / EDUCATION & CERTIFICATIONS</p>
+              <h2>
+                Learning. Building.
+                <br />
+                Repeating.
+              </h2>
+            </div>
+            <div>
+              <h3>JECRC</h3>
+              <p>B.Tech Information Technology</p>
+              <dl>
+                <div>
+                  <dt>Expected graduation</dt>
+                  <dd>2028</dd>
+                </div>
+                <div>
+                  <dt>CGPA</dt>
+                  <dd>9.00/10.00</dd>
+                </div>
+                <div>
+                  <dt>Location</dt>
+                  <dd>Jaipur, Rajasthan, India</dd>
+                </div>
+              </dl>
+              {D.certifications.length > 0 && (
+                <ul>
+                  {D.certifications.map((c: any) => (
+                    <li key={c.title}>
+                      <External href={c.url}>
+                        {c.title} · {c.issuer}
+                      </External>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </section>
+        <section id="contact" className="contact">
+          <div className="wrap contact-grid">
+            <div>
+              <p className="eyebrow">LET'S BUILD SOMETHING USEFUL</p>
+              <h2>
+                Have a hard problem?
+                <br />
+                <em>Let's talk.</em>
+              </h2>
+              <p>
+                Interested in software engineering internships,
+                <br />
+                backend systems and applied AI.
+              </p>
+            </div>
+            <div className="contact-links">
+              <a href={"mailto:" + D.email}>
+                {D.email} {arrow}
+              </a>
+              <div>
+                <External href={D.github}>GitHub </External>
+                <External href={D.linkedin}>LinkedIn </External>
+                <button
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(D.email);
+                      setCopied("Email copied.");
+                    } catch {
+                      setCopied("Please copy the email address above.");
+                    }
+                  }}
+                >
+                  Copy email
+                </button>
+              </div>
+              <p role="status">{copied}</p>
+            </div>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}
+function ProjectPage({ p }: any) {
+  const x = decisions[p.id];
+  return (
+    <>
+      <Nav />
+      <main id="main" tabIndex={-1}>
+        <section className="case-hero">
+          <div className="wrap">
+            <a className="back" href="/index.html#work">
+              ← Selected work
+            </a>
+            <div className="case-meta">
+              <span>ENGINEERING STUDY / {p.index}</span>
+              <span className="status">{p.status}</span>
+            </div>
+            <h1>
+              {p.title}
+              <em>.</em>
+            </h1>
+            <p className="case-headline">{x.title}</p>
+            <p className="case-description">{p.short}</p>
+            <div className="actions">
+              {p.repo && (
+                <External className="button primary" href={p.repo}>
+                  Source repository{" "}
+                </External>
+              )}
+              {p.demo && (
+                <External className="button secondary" href={p.demo}>
+                  Documented demo{" "}
+                </External>
+              )}
+              {!p.repo && (
+                <span>
+                  {p.id === "evalforge"
+                    ? "Private repository · no public deployment"
+                    : "In-progress research · local source"}
+                </span>
+              )}
+            </div>
+            <div className="tags">
+              {p.stack.map((s: string) => (
+                <span key={s}>{s}</span>
+              ))}
+            </div>
+          </div>
+        </section>
+        <div className="wrap case-layout">
+          <aside className="case-nav">
+            <p className="eyebrow">IN THIS STUDY</p>
+            <a href="#context">01 / Context</a>
+            <a href="#decision">02 / Key decision</a>
+            <a href="#implementation">03 / Contributions</a>
+            <a href="#validation">04 / Validation</a>
+            <a href="#limits">05 / Limitations</a>
+          </aside>
+          <div className="case-body">
+            <div className="case-summary">
+              <strong>{x.proof}</strong>
+              <p>{x.scope}</p>
+            </div>
+            <section id="context">
+              <p className="eyebrow">01 / CONTEXT</p>
+              <h2>The problem behind the interface.</h2>
+              <p>{p.overview}</p>
+              <p>{p.problem}</p>
+            </section>
+            <Diagram p={p} />
+            {p.id === "aegised" && (
+              <figure className="product-capture">
+                <a
+                  href="/assets/aegised-dashboard.webp"
+                  aria-label="Open full AegisED dashboard screenshot"
+                >
+                  <img
+                    src="/assets/aegised-dashboard.webp"
+                    width="1440"
+                    height="1592"
+                    loading="lazy"
+                    alt="AegisED repository screenshot showing the CareFlow emergency operations dashboard with synthetic demo records"
+                  />
+                </a>
+                <figcaption>
+                  Actual repository screenshot · CareFlow / AegisED · synthetic
+                  demonstration data.{" "}
+                  <External href="https://github.com/YT-PRO12/AegisED/blob/main/docs/screenshots/dashboard-desktop.png">
+                    View original source{" "}
+                  </External>
+                </figcaption>
+              </figure>
+            )}
+            <section id="decision">
+              <p className="eyebrow">02 / KEY DECISION</p>
+              <h2>{x.title}</h2>
+              <p>{x.reason}</p>
+              <div className="decision-note">
+                <h3>Why this approach</h3>
+                <p>{x.tradeoff}</p>
+              </div>
+              <dl className="architecture">
+                {p.architecture.map(([title, desc]: string[]) => (
+                  <div key={title}>
+                    <dt>{title}</dt>
+                    <dd>{desc}</dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+            <section id="implementation">
+              <p className="eyebrow">03 / ENGINEERING CONTRIBUTIONS</p>
+              <h2>Where I focused the work.</h2>
+              <ol className="contributions">
+                {p.contribution.map((s: string) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ol>
+            </section>
+            <section id="validation">
+              <p className="eyebrow">04 / VALIDATION</p>
+              <h2>What the evidence supports.</h2>
+              <ul className="evidence-list">
+                {p.evidence.map((s: string) => (
+                  <li key={s}>{s}</li>
+                ))}
+              </ul>
+              {p.source.length > 0 ? (
+                <div className="source-links">
+                  {p.source.map(([title, url]: string[]) => (
+                    <External key={url} href={url}>
+                      {title}{" "}
+                    </External>
+                  ))}
+                </div>
+              ) : (
+                <p className="scope-note">
+                  {p.id === "evalforge"
+                    ? "Reported local results from supplied project documentation; private implementation is not published here."
+                    : "Historical results from supplied project context; no public source or final independent validation is supplied."}
+                </p>
+              )}
+            </section>
+            <section id="limits" className="limitations">
+              <p className="eyebrow">05 / CURRENT LIMITATIONS</p>
+              <h2>
+                {p.id === "routeguard"
+                  ? "In progress. The target is unachieved."
+                  : "The boundary of this work."}
+              </h2>
+              <p>{p.limits}</p>
+            </section>
+          </div>
+        </div>
+        <section className="next-project">
+          <div className="wrap">
+            <p className="eyebrow">KEEP EXPLORING</p>
+            {projects
+              .filter((v: any) => v.id !== p.id)
+              .map((v: any) => (
+                <a key={v.id} href={path(v.id)}>
+                  <span>{v.index}</span>
+                  <strong>{v.title}</strong>
+                  {arrow}
+                </a>
+              ))}
+          </div>
+        </section>
+        <ResumeLinks />
+      </main>
+      <Footer />
+    </>
+  );
+}
+const slug = location.pathname.split("/").pop()?.replace(".html", "");
+const project = projects.find((p: any) => p.id === slug);
+const home = location.pathname === "/" || slug === "index";
+createRoot(document.getElementById("root")!).render(
+  project ? (
+    <ProjectPage p={project} />
+  ) : home ? (
+    <Home />
+  ) : (
+    <>
+      <Nav />
+      <main id="main" className="notfound">
+        <p className="eyebrow">404</p>
+        <h1>This page isn't here.</h1>
+        <a className="button primary" href="/index.html">
+          Return to the portfolio →
+        </a>
+      </main>
+      <Footer />
+    </>
+  ),
+);
