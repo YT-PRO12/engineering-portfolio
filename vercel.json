@@ -6,23 +6,18 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/resume/Yatharth_Goyal_Resume.pdf",
-      "destination": "https://drive.google.com/file/d/1pPOzUIJYmg51kNPHuExmy2VBvKdnPOqb/view",
-      "permanent": false
-    },
-    {
       "source": "/resume/Yatharth_Goyal_Resume.docx",
-      "destination": "https://drive.google.com/file/d/1pPOzUIJYmg51kNPHuExmy2VBvKdnPOqb/view",
+      "destination": "/resume/Yatharth_Goyal_Resume.pdf",
       "permanent": false
     },
     {
       "source": "/resume/Yatharth_Goyal_AI_ML_Resume.pdf",
-      "destination": "https://drive.google.com/file/d/1pPOzUIJYmg51kNPHuExmy2VBvKdnPOqb/view",
+      "destination": "/resume/Yatharth_Goyal_Resume.pdf",
       "permanent": false
     },
     {
       "source": "/resume/Yatharth_Goyal_AI_ML_Resume.docx",
-      "destination": "https://drive.google.com/file/d/1pPOzUIJYmg51kNPHuExmy2VBvKdnPOqb/view",
+      "destination": "/resume/Yatharth_Goyal_Resume.pdf",
       "permanent": false
     }
   ]
