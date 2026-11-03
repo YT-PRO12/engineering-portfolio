@@ -1,0 +1,17 @@
+PORTFOLIO DEPLOYMENT — WINDOWS POWERSHELL 5.1
+
+1. Download this ZIP to Downloads (or locate it through File Explorer).
+2. Extract its contents to D:\YatharthPortfolio.
+3. In PowerShell:
+   Set-Location D:\YatharthPortfolio
+   node --version
+   npm --version
+   npm install
+   if ($LASTEXITCODE -ne 0) { throw 'npm install failed' }
+   npm run build
+   if ($LASTEXITCODE -ne 0) { throw 'npm run build failed' }
+   npm run dev
+
+The source files are at the ZIP root (package.json is directly in D:\YatharthPortfolio after extraction).
+Please verify contact info, links, and your project facts before deploying publicly.
+Do not publish your files without reviewing them.
