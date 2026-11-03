@@ -1,38 +1,30 @@
-name: Sync verified portfolio resumes
+name: Verify official recruiter resume
 on:
   push:
     branches: [main]
     paths:
-      - '.github/workflows/sync-resumes.yml'
-      - 'scripts/build_resume_assets.py'
+      - 'public/resume/**'
+      - 'public/certificates/**'
       - 'scripts/check_assets.py'
-      - 'src/App.tsx'
-      - 'public/data.js'
+      - '.github/workflows/sync-resumes.yml'
   workflow_dispatch:
 permissions:
   contents: read
 jobs:
-  build-resume-artifacts:
+  verify-official-resume:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install resume generator dependencies
+      - name: Validate original uploaded PDF and repository evidence
         run: |
-          python -m pip install 'python-docx>=1.1,<2' 'pypdf>=5,<7'
-          sudo apt-get update -qq
-          sudo apt-get install -y --no-install-recommends libreoffice-writer fonts-liberation
-      - name: Generate and verify matching one-page resumes
-        run: |
-          python scripts/build_resume_assets.py
+          python -m pip install 'pypdf>=5,<7'
           python scripts/check_assets.py
       - uses: actions/upload-artifact@v4
         with:
-          name: verified-one-page-resumes
-          path: public/resume/
+          name: verified-official-recruiter-resume
+          path: public/resume/Yatharth_Goyal_Resume.pdf
           if-no-files-found: error
