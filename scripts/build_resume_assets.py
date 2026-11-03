@@ -23,95 +23,11 @@ NAVY = RGBColor(22, 48, 67)
 GRAY = RGBColor(80, 92, 101)
 BLACK = RGBColor(28, 35, 39)
 
-PROJECTS = {
- 'aegised': {
-  'title':'AegisED | Emergency Operations & Decision Support',
-  'status':'LIVE DEMO',
-  'stack':'React · Express · PostgreSQL · FastAPI · scikit-learn · Render',
-  'links': [('SOURCE','https://github.com/YT-PRO12/AegisED'),('DEMO','https://careflow-app.onrender.com')],
-  'sde': [
-   'Engineered transactional intake, doctor/bed allocation, treatment and discharge flows; used PostgreSQL row locks and rollback to protect resource consistency under concurrent requests.',
-   'Implemented backend RBAC, session safeguards and audit logging; connected an Express gateway to a human-reviewed FastAPI ML service with override tracking.',
-   'Compared four triage model candidates; documented 0.789 macro-F1 on 900 held-out synthetic cases (non-clinical), alongside API and Python validation.'
-  ],
-  'ml': [
-   'Integrated a FastAPI/scikit-learn triage-support service into a React/Express emergency operations platform; recommendations require human review and allow recorded overrides.',
-   'Compared four candidate models and evaluated on 900 held-out synthetic scenarios: macro-F1 0.789; these results are not clinical validation.',
-   'Implemented PostgreSQL-backed workflows with row-level locking, authorization and auditable patient/resource transitions.'
-  ]
- },
- 'evalforge': {
-  'title':'EvalForge | Evidence-Based Assessment Intelligence',
-  'status':'PRIVATE · NOT DEPLOYED',
-  'stack':'React · Express · PostgreSQL · Redis/BullMQ · FastAPI · Docker',
-  'links':[],
-  'sde': [
-   'Developed versioned assessment rubrics, criterion-linked evidence, instructor approvals/overrides, appeals and organization-scoped access checks.',
-   'Designed durable asynchronous grading: PostgreSQL job persistence, Redis/BullMQ dispatch, idempotent writes, bounded retries and dead-letter recovery.',
-   'Documented 15/15 backend and 7/7 evaluator tests in local checks; production deployment, hosted CI and full real-service E2E remain pending.'
-  ],
-  'ml': [
-   'Built a rubric-based evaluation workflow that anchors positive scores to exact response evidence spans and keeps instructor review in control.',
-   'Separated Express orchestration, PostgreSQL durable jobs, BullMQ workers and the Python/FastAPI evaluator; guarded invalid or incomplete evaluator outputs.',
-   'Documented 15/15 backend tests and 7/7 evaluator tests locally; no public deployment or externally validated scoring accuracy is claimed.'
-  ]
- },
- 'grid': {
-  'title':'Grid Flex | Industrial Energy Scheduling Optimizer',
-  'status':'LOCAL PROTOTYPE',
-  'stack':'Python · SciPy/HiGHS · MILP · JavaScript · AWS SAM',
-  'links': [('SOURCE','https://github.com/YT-PRO12/Grid-Flex')],
-  'sde': [
-   'Formulated a mixed-integer scheduling model for five synthetic production jobs, solar supply, battery dispatch and grid limits; computed cost, balanced and carbon-priority plans.',
-   'Implemented independent post-solve audits for power balance, state-of-charge, deadlines and reported costs; added outage and solar-stress analysis.',
-   'Passed 52/52 documented local regression tests and desktop/mobile UI checks; AWS Lambda/API Gateway/DynamoDB integration is templated, not deployed.'
-  ],
-  'ml': [
-   'Modeled synthetic industrial energy scheduling as a mixed-integer linear program using SciPy/HiGHS across cost, balanced and carbon objectives.',
-   'Developed independent constraint verification and deterministic solar-shortfall, grid-outage and battery-wear sensitivity analyses.',
-   'Documented 52/52 passing local regression tests; results are modeled scenarios, not measured emissions or deployed AWS outcomes.'
-  ]
- },
- 'routeguard': {
-  'title':'RouteGuard 2.0 | Road-Hazard Intelligence',
-  'status':'IN PROGRESS',
-  'stack':'Python · YOLO · React/Leaflet · Express · PostGIS · TomTom',
-  'links':[],
-  'sde': [
-   'Developing hazard-informed route comparison with a React/Leaflet driver interface, Express APIs, PostGIS and TomTom routing; conducting dataset-label audits for road-damage detection.',
-   'Research target (not achieved): ≥95% precision and recall per severe-hazard class on independent test data; experiments are not production safety claims.'
-  ],
-  'ml': [
-   'Evaluating YOLO road-damage models with dataset-integrity checks, empty-label reviews, split-leakage audits and reproducible experiments.',
-   'Integrating experimental computer vision with PostGIS-backed hazard intelligence and route comparison; research target ≥95% severe-hazard precision and recall remains unmet.'
-  ]
- }
-}
-
-SKILLS = {
- 'sde':[
-  ('Languages','Java, JavaScript, Python, SQL, HTML, CSS'),
-  ('Frameworks & Libraries','React, Vite, Node.js, Express.js, FastAPI, REST APIs'),
-  ('Databases','PostgreSQL, PostGIS, SQLite, Redis / BullMQ'),
-  ('Cloud & Infrastructure','Docker, Render, Neon, AWS SAM (deployment templates)'),
-  ('Developer Tools','Git, GitHub Actions, Playwright, pytest; Java DSA: 16-topic practice repository'),
-  ('Machine Learning & AI','scikit-learn, YOLO, pandas, NumPy, SciPy / HiGHS')
- ],
- 'ml':[
-  ('Languages','Java, Python, JavaScript, SQL, HTML, CSS'),
-  ('Frameworks & Libraries','FastAPI, scikit-learn, React, Express.js, REST APIs'),
-  ('Databases','PostgreSQL, PostGIS, SQLite, Redis / BullMQ'),
-  ('Cloud & Infrastructure','Docker, Render, Neon, AWS SAM (deployment templates)'),
-  ('Developer Tools','Git, GitHub Actions, pytest, Playwright; Java DSA: 16-topic repository'),
-  ('Machine Learning & AI','YOLO, computer vision evaluation, pandas, NumPy, SciPy / HiGHS, MILP')
- ]
-}
-
 def hyperlink(para, text, target):
     rid = para.part.relate_to(target, RT.HYPERLINK, is_external=True)
     h = OxmlElement('w:hyperlink'); h.set(qn('r:id'),rid)
     r = OxmlElement('w:r'); rp = OxmlElement('w:rPr')
-    for tag, val in [('color','16416B'),('sz','16')]:
+    for tag, val in [('color','354F29'),('sz','20')]:
         el=OxmlElement('w:'+tag);el.set(qn('w:val'),val);rp.append(el)
     r.append(rp); t=OxmlElement('w:t'); t.text=text; r.append(t); h.append(r)
     para._p.append(h)
@@ -122,74 +38,75 @@ def border_under(para):
     borders.append(b);ppr.append(borders)
 
 def make_resume(kind, filename):
-    d=Document(); s=d.sections[0]
-    s.page_width=Inches(8.27);s.page_height=Inches(11.69)
-    s.top_margin=Inches(.55);s.bottom_margin=Inches(.52)
-    s.left_margin=Inches(.67);s.right_margin=Inches(.67)
-    s.header_distance=Inches(.3);s.footer_distance=Inches(.3)
-    styles=d.styles
-    normal=styles['Normal'];normal.font.name='Inter';normal.font.size=Pt(9.15);normal.font.color.rgb=BLACK
-    normal.paragraph_format.space_before=Pt(0);normal.paragraph_format.space_after=Pt(0);normal.paragraph_format.line_spacing=1.08
-    def para(text='',before=0,after=0,keep=False):
-        p=d.add_paragraph();p.paragraph_format.space_before=Pt(before);p.paragraph_format.space_after=Pt(after)
-        p.paragraph_format.keep_with_next=keep
+    d=Document(); sec=d.sections[0]
+    for style in d.styles:
+        for border in list(style.element.iter(qn('w:pBdr'))):
+            border.getparent().remove(border)
+    sec.page_width=Inches(8.27); sec.page_height=Inches(11.69)
+    sec.top_margin=Inches(.57); sec.bottom_margin=Inches(.55)
+    sec.left_margin=Inches(.62); sec.right_margin=Inches(.62)
+    normal=d.styles['Normal']; normal.font.name='Liberation Sans'; normal.font.size=Pt(10.5); normal.font.color.rgb=RGBColor(35,38,34)
+    normal.paragraph_format.space_after=Pt(3)
+    normal.paragraph_format.line_spacing=1.08
+    for name in ['Title','Heading 1','Heading 2']:
+        d.styles[name].font.name='Liberation Sans'; d.styles[name].font.color.rgb=RGBColor(0,0,0)
+    def para(text='',before=0,after=3,keep=False,style=None):
+        p=d.add_paragraph(style=style); f=p.paragraph_format
+        f.space_before=Pt(before); f.space_after=Pt(after); f.keep_with_next=keep
         if text:p.add_run(text)
         return p
     def heading(text):
-        p=para(before=9.0,after=5.2,keep=True)
-        r=p.add_run(text.upper());r.bold=True;r.font.name='Inter';r.font.size=Pt(9.2);r.font.color.rgb=NAVY
+        p=para(text.upper(),before=12,after=6,keep=True,style='Heading 1')
+        for r in p.runs:r.bold=True; r.font.size=Pt(10)
         border_under(p)
-        return p
-    p=para(after=1.8,keep=True);p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    r=p.add_run('YATHARTH GOYAL');r.bold=True;r.font.size=Pt(18.5);r.font.color.rgb=NAVY
-    role='SOFTWARE ENGINEERING · BACKEND SYSTEMS · JAVA' if kind=='sde' else 'APPLIED AI · COMPUTER VISION · ML ENGINEERING'
-    p=para(after=3.2,keep=True);p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    r=p.add_run(role);r.font.size=Pt(8.0);r.font.bold=True;r.font.color.rgb=GRAY
-    p=para(after=3.5,keep=True);p.alignment=WD_ALIGN_PARAGRAPH.CENTER
-    p.add_run('Jaipur, Rajasthan, India   |   ')
+    p=para('Yatharth Goyal',after=2,keep=True,style='Title')
+    for r in p.runs:r.font.size=Pt(26);r.bold=True
+    role='SDE / BACKEND  |  JAVA · RELATIONAL SYSTEMS · ASYNC WORKFLOWS' if kind=='sde' else 'AI / ML  |  MODEL EVALUATION · COMPUTER VISION · OPTIMIZATION'
+    p=para(role,after=7,keep=True)
+    for r in p.runs:r.font.size=Pt(9);r.bold=True;r.font.color.rgb=GRAY
+    p=para(after=2,keep=True);p.add_run('Jaipur, India  |  ')
     hyperlink(p,'yatharthgoyal657@gmail.com','mailto:yatharthgoyal657@gmail.com')
-    p.add_run('   |   ');hyperlink(p,'GitHub','https://github.com/YT-PRO12')
-    p.add_run('   |   ');hyperlink(p,'LinkedIn','https://www.linkedin.com/in/yatharth-goyal-ab0b8326/')
-    p.add_run('   |   ');hyperlink(p,'LeetCode','https://leetcode.com/u/yatharth_goyal/')
-    p.add_run('   |   ');hyperlink(p,'Portfolio code','https://github.com/YT-PRO12/engineering-portfolio')
+    p=para(after=1,keep=True)
+    for i,(label,url) in enumerate([('GitHub','https://github.com/YT-PRO12'),('LinkedIn','https://www.linkedin.com/in/yatharth-goyal-ab0b8326/'),('Java DSA','https://github.com/YT-PRO12/DSA-Java-Interview-Prep'),('Portfolio source','https://github.com/YT-PRO12/engineering-portfolio')]):
+        if i:p.add_run('   /   ')
+        hyperlink(p,label,url)
     heading('Technical Skills')
-    for label, value in SKILLS[kind]:
-        p=para(after=2.2)
-        r=p.add_run(label+'  ');r.bold=True;r.font.size=Pt(8.95)
-        r=p.add_run(value);r.font.size=Pt(8.95)
+    skills={
+      'sde': [('Languages','Java, JavaScript, Python, SQL'),('Backend','Node.js, Express, PostgreSQL, Redis/BullMQ, FastAPI, REST APIs'),('Delivery','React, Vite, Git, Docker, GitHub Actions, pytest, Playwright'),('Foundations','Data structures and algorithms; 16-topic Java practice roadmap')],
+      'ml': [('Languages','Python, Java, SQL, JavaScript'),('ML and data','scikit-learn, YOLO, pandas, NumPy, SciPy/HiGHS, MILP'),('Systems','FastAPI, Express, PostgreSQL/PostGIS, Redis/BullMQ, React'),('Validation','pytest, Git, Docker; data audits, model evaluation; Java DSA')]
+    }
+    for label,value in skills[kind]:
+        p=para(after=3);p.add_run(label+'  ').bold=True;p.add_run(value)
     heading('Selected Projects & Engineering Contributions')
-    order=['aegised','evalforge','grid','routeguard'] if kind=='sde' else ['routeguard','aegised','evalforge','grid']
-    for idx,key in enumerate(order):
-        info=PROJECTS[key]
-        p=para(before=4.6 if idx else 0,after=1.4,keep=True)
-        title=p.add_run(info['title']);title.bold=True;title.font.color.rgb=NAVY;title.font.size=Pt(9.2)
-        p.add_run('   ·   ')
-        st=p.add_run(info['status']);st.bold=True;st.font.size=Pt(7.4);st.font.color.rgb=GRAY
-        for label, url in info['links']:
-            p.add_run('   |   ');hyperlink(p,label,url)
-        p=para(after=1.8,keep=True)
-        st=p.add_run(info['stack']);st.italic=True;st.font.size=Pt(8.1);st.font.color.rgb=GRAY
-        for i,b in enumerate(info[kind]):
-            p=para(after=2.1)
-            p.paragraph_format.left_indent=Inches(.13);p.paragraph_format.first_line_indent=Inches(-.13)
-            p.paragraph_format.keep_together=True
-            r=p.add_run('•  '+b);r.font.size=Pt(8.85)
+    bullets={
+      'sde': {
+       'aegised': ['Built transactional intake and doctor/bed allocation with PostgreSQL row locks; enforced API roles and audit trails across workflow transitions.','Integrated human-reviewed FastAPI ML support; documented macro-F1 of 0.7893 on 900 held-out synthetic cases, without clinical validation.'],
+       'evalforge': ['Designed durable grading jobs with PostgreSQL persistence, BullMQ workers and idempotent processing; linked rubric scores to exact answer evidence.','Documented 15/15 backend and 7/7 evaluator local checks; hosted CI and full browser acceptance remain pending.'],
+       'grid': ['Built SciPy/HiGHS energy scheduling with cost, balanced and carbon objectives; independently audited power balance, battery state and deadlines.','Documented 52/52 local regression tests on synthetic scenarios; AWS SAM templates are prepared, not deployed.'],
+       'routeguard': ['Developing React/Leaflet route comparison with Express, PostGIS and TomTom; auditing YOLO road-damage data and labels.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']},
+      'ml': {
+       'aegised': ['Integrated a FastAPI/scikit-learn triage-support service with human review and recorded overrides in an emergency-operations platform.','Documented macro-F1 of 0.7893 on 900 held-out synthetic cases; this is non-clinical evaluation, not clinical validation.'],
+       'evalforge': ['Built rubric-grounded evaluation with exact response spans, output validation and instructor overrides; separated workers from durable PostgreSQL jobs.','Documented 7/7 evaluator and 15/15 backend local checks; no externally validated scoring accuracy or public deployment is claimed.'],
+       'grid': ['Formulated synthetic energy scheduling as a SciPy/HiGHS MILP with cost, balanced and carbon objectives; added independent constraint audits.','Documented 52/52 local tests and scenario stress analysis; results are modeled, not measured industrial savings. AWS SAM is not deployed.'],
+       'routeguard': ['Evaluating YOLO road-damage models through label reviews, dataset-integrity checks and split-leakage audits; integrating PostGIS-backed route comparison.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']}}
+    order=['aegised','evalforge','grid','routeguard'] if kind=='sde' else ['aegised','routeguard','evalforge','grid']
+    titles={'aegised':'AegisED','evalforge':'EvalForge','grid':'Grid Flex','routeguard':'RouteGuard 2.0'}
+    status={'aegised':'SYNTHETIC ML · PUBLIC SOURCE','evalforge':'PRIVATE · RELEASE PENDING','grid':'LOCAL PROTOTYPE','routeguard':'IN PROGRESS'}
+    for i,key in enumerate(order):
+        p=para(before=8 if i else 0,after=3,keep=True,style='Heading 2')
+        p.paragraph_format.tab_stops.add_tab_stop(Inches(7.03),WD_TAB_ALIGNMENT.RIGHT)
+        r=p.add_run(titles[key]);r.bold=True;r.font.size=Pt(12)
+        r=p.add_run('\t'+status[key]);r.font.size=Pt(8);r.font.color.rgb=GRAY
+        for b in bullets[kind][key]:
+            p=para(after=3);p.paragraph_format.left_indent=Inches(.12);p.paragraph_format.first_line_indent=Inches(-.12);p.paragraph_format.keep_together=True
+            p.add_run('• '+b)
     heading('Education & Certifications')
-    p=para(after=2.1,keep=True)
-    r=p.add_run('Bachelor of Technology (B.Tech), Information Technology');r.bold=True;r.font.size=Pt(9.05)
-    r=p.add_run('   |   JECRC, Jaipur   |   Expected 2028');r.font.size=Pt(8.85)
-    p=para(after=2.3,keep=True)
-    r=p.add_run('CGPA: 9.00/10.00');r.bold=True;r.font.size=Pt(9.1);r.font.color.rgb=NAVY
-    p=para(after=0)
-    r=p.add_run('Certifications  ');r.bold=True;r.font.size=Pt(8.75)
-    r=p.add_run('Credentials withheld pending issuer-issued verification; no exam passes claimed.')
-    r.font.size=Pt(8.6);r.font.color.rgb=GRAY
-    d.core_properties.title=f'Yatharth Goyal | {"Software Engineering" if kind=="sde" else "AI/ML"} Resume'
-    d.core_properties.subject='User-confirmed CGPA: 9.00/10.00. Certifications evidence pending.'
+    p=para(after=3,keep=True);p.add_run('JECRC  |  B.Tech Information Technology').bold=True
+    p=para('Expected graduation: 2028  |  CGPA: 9.00/10.00',after=0)
+    d.core_properties.title='Yatharth Goyal '+('SDE Backend' if kind=='sde' else 'AI ML')+' Resume'
+    d.core_properties.subject='Engineering projects and technical skills'
     d.core_properties.author='Yatharth Goyal'
-    dest=OUT/filename
-    d.save(dest)
-    return dest
+    dest=OUT/filename;d.save(dest);return dest
 
 
 def main():
