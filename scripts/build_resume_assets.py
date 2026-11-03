@@ -83,15 +83,15 @@ def make_resume(kind, filename):
        'aegised': ['Built React-driven intake, doctor/bed assignment and discharge flows backed by Express APIs, role checks and audit trails.','Protected shared doctor and bed allocations with PostgreSQL transactions, row-level locks and rollback handling for competing requests.'],
        'evalforge': ['Designed durable grading jobs with PostgreSQL persistence, BullMQ workers and idempotent processing; linked rubric scores to exact answer evidence.','Documented 15/15 backend and 7/7 evaluator local checks; hosted CI and full browser acceptance remain pending.'],
        'grid': ['Built SciPy/HiGHS energy scheduling with cost, balanced and carbon objectives; independently audited power balance, battery state and deadlines.','Documented 52/52 local regression tests on synthetic scenarios; AWS SAM templates are prepared, not deployed.'],
-       'routeguard': ['Developing React/Leaflet route comparison with Express, PostGIS and TomTom; integrating driver location and destination resolution.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']},
+       'edupredict': ['Built React/Vite student dashboards and assessment workflows backed by FastAPI endpoints and persistent student history.','Added server-generated assessment IDs and student-scoped intervention updates; database regressions cover isolation and rollback.']},
       'ml': {
        'aegised': ['Integrated a FastAPI/scikit-learn triage-support service with human review and recorded overrides in an emergency-operations platform.','Documented macro-F1 of 0.7893 on 900 held-out synthetic cases; this is non-clinical evaluation, not clinical validation.'],
        'evalforge': ['Built rubric-grounded evaluation with exact response spans, output validation and instructor overrides; separated workers from durable PostgreSQL jobs.','Documented 7/7 evaluator and 15/15 backend local checks; no externally validated scoring accuracy or public deployment is claimed.'],
        'grid': ['Formulated synthetic energy scheduling as a SciPy/HiGHS MILP with cost, balanced and carbon objectives; added independent constraint audits.','Documented 52/52 local tests and scenario stress analysis; results are modeled, not measured industrial savings. AWS SAM is not deployed.'],
-       'routeguard': ['Evaluating YOLO road-damage models through label reviews, dataset-integrity checks and split-leakage audits; integrating PostGIS-backed route comparison.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']}}
-    order=['aegised','evalforge','grid','routeguard'] if kind=='sde' else ['aegised','routeguard','evalforge','grid']
-    titles={'aegised':'AegisED','evalforge':'EvalForge','grid':'Grid Flex','routeguard':'RouteGuard 2.0'}
-    status={'aegised':'FULL-STACK · PUBLIC SOURCE','evalforge':'PRIVATE · RELEASE PENDING','grid':'LOCAL PROTOTYPE','routeguard':'IN PROGRESS'}
+       'edupredict': ['Implemented an education risk-review interface with student assessment history, explanation views and intervention tracking.','Connected React workflows to FastAPI services and SQLite records; risk signals are decision support, not validated real-world outcomes.']}}
+    order=['aegised','evalforge','grid','edupredict'] if kind=='sde' else ['aegised','edupredict','evalforge','grid']
+    titles={'aegised':'AegisED','evalforge':'EvalForge','grid':'Grid Flex','edupredict':'EduPredict AI'}
+    status={'aegised':'FULL-STACK · PUBLIC SOURCE','evalforge':'PRIVATE · RELEASE PENDING','grid':'LOCAL PROTOTYPE','edupredict':'PUBLIC SOURCE · DEMO DOCUMENTED'}
     for i,key in enumerate(order):
         p=para(before=8 if i else 0,after=3,keep=True,style='Heading 2')
         p.paragraph_format.tab_stops.add_tab_stop(Inches(7.03),WD_TAB_ALIGNMENT.RIGHT)
