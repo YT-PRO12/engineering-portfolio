@@ -5,7 +5,6 @@ const D = (window as any).PORTFOLIO_DATA;
 const projects = D.projects;
 const path = (id: string) => `/projects/${id}.html`;
 const resume = "/resume/Yatharth_Goyal_Resume";
-const ml = "/resume/Yatharth_Goyal_AI_ML_Resume";
 const arrow = <span aria-hidden="true">↗</span>;
 function External({ href, children, ...props }: any) {
   return (
@@ -17,16 +16,16 @@ function External({ href, children, ...props }: any) {
 }
 const decisions: any = {
   aegised: {
-    title: "Protect the allocation, inside the transaction.",
-    focus: "Concurrency & integrity",
-    proof: "0.7893 macro-F1",
-    scope: "900 held-out synthetic cases · non-clinical",
+    title: "Design the interface. Protect the data.",
+    focus: "Full-stack APIs & database integrity",
+    proof: "Transaction-safe workflows",
+    scope: "React UI · Express REST API · PostgreSQL",
     reason:
-      "Competing operators can request the same doctor or bed. PostgreSQL transactions and row locks keep resource assignment and workflow state consistent.",
+      "Patient intake, doctor assignment and bed allocation must agree across the browser, API and database. Express owns authorization and validation, while PostgreSQL transactions and row locks guard simultaneous updates.",
     tradeoff:
-      "Locking belongs in the database; API authorization and audit events protect the surrounding workflow. ML recommendations remain subject to human review.",
-    nodes: ["Request", "Row lock", "Assign", "Commit"],
-    invariant: "One resource. One consistent allocation.",
+      "The React interface presents operational state; the Node.js API enforces business rules. Role checks, data integrity and audit records stay on the server rather than trusting client-side controls.",
+    nodes: ["React UI", "Express API", "Row lock", "Commit"],
+    invariant: "Clear interfaces. Consistent server state.",
   },
   evalforge: {
     title: "Persist the work before dispatching it.",
@@ -53,16 +52,16 @@ const decisions: any = {
     invariant: "Feasibility before an objective value.",
   },
   routeguard: {
-    title: "Audit the data before trusting the detector.",
-    focus: "Computer vision & geospatial research",
-    proof: "95%+ research target",
-    scope: "Precision AND recall per severe-hazard class · not achieved",
+    title: "Connect location, road data and usable routes.",
+    focus: "Geospatial product development",
+    proof: "Active full-stack development",
+    scope: "React / Leaflet · Express · PostGIS · TomTom",
     reason:
-      "Road-damage labels contain uncertainty, and the four-class baseline does not cover all severe hazards. Empty-label review and split-leakage checks are part of the evaluation work.",
+      "Navigation interfaces must handle location permissions, stale GPS fixes, destination search and route comparisons without hiding uncertainty from drivers.",
     tradeoff:
-      "The historical baseline is evidence for a limited validation set, not a road-safety guarantee. Broader severe-hazard coverage and independent evaluation remain open work.",
-    nodes: ["Label audit", "YOLO eval", "PostGIS", "Routes"],
-    invariant: "In progress. Target not achieved.",
+      "Routing and map interaction are software-engineering work in progress. Hazard-model research is experimental and does not establish that any route is safe.",
+    nodes: ["Place search", "Express API", "PostGIS", "Map routes"],
+    invariant: "Useful navigation. No safety guarantees.",
   },
 };
 function Nav() {
@@ -94,7 +93,7 @@ function Nav() {
           <small>
             YATHARTH GOYAL
             <br />
-            ENGINEERING PORTFOLIO
+            SOFTWARE ENGINEER
           </small>
         </a>
         <nav aria-label="Main navigation" className="desktop-nav">
@@ -105,7 +104,7 @@ function Nav() {
           ))}
         </nav>
         <a className="nav-resume" href="/index.html#resumes">
-          Resumes ↓
+          Resume ↓
         </a>
         <button
           ref={button}
@@ -129,7 +128,7 @@ function Nav() {
           }
         }}
       >
-        {[...links, ["resumes", "Resumes"], ["education", "Education"]].map(
+        {[...links, ["resumes", "Resume"], ["education", "Education"]].map(
           ([id, label]) => (
             <a
               key={id}
@@ -186,36 +185,20 @@ function ResumeLinks() {
     <section id="resumes" className="resume-section">
       <div className="wrap resume-layout">
         <div>
-          <p className="eyebrow">THE ONE-PAGE VERSION</p>
-          <h2>Choose your lens.</h2>
-          <p>Two focused resumes. The same engineering foundations.</p>
+          <p className="eyebrow">SOFTWARE ENGINEERING / ONE-PAGE PROFILE</p>
+          <h2>The work, on one page.</h2>
+          <p>A focused resume covering Java, frontend and backend engineering, database integrity and delivery.</p>
         </div>
         <div className="resume-options">
-          {[
-            ["SDE / Backend", resume, "Java · APIs · reliable workflows"],
-            ["AI / ML", ml, "Evaluation · computer vision · optimization"],
-          ].map(([title, file, sub]) => (
-            <div className="resume-option" key={title}>
-              <h3>{title}</h3>
-              <p>{sub}</p>
-              <div>
-                <a
-                  href={file + ".pdf"}
-                  download
-                  aria-label={"Download " + title + " PDF"}
-                >
-                  PDF ↓
-                </a>
-                <a
-                  href={file + ".docx"}
-                  download
-                  aria-label={"Download " + title + " editable Word resume"}
-                >
-                  Editable Word ↓
-                </a>
-              </div>
+          <div className="resume-option">
+            <p className="eyebrow">SDE / FULL STACK / BACKEND</p>
+            <h3>Software Engineer Resume</h3>
+            <p>Java · React · Node.js / Express · PostgreSQL</p>
+            <div>
+              <a href={resume + ".pdf"} download aria-label="Download Software Engineer resume PDF">Download PDF ↓</a>
+              <a href={resume + ".docx"} download aria-label="Download editable Software Engineer resume Word document">Editable Word ↓</a>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
@@ -235,22 +218,22 @@ function Home() {
           <div className="wrap">
             <div className="hero-meta">
               <span>
-                <i /> JAVA-FIRST DEVELOPER
+                <i /> SOFTWARE ENGINEER · FULL STACK
               </span>
               <span>JAIPUR, INDIA / 2026</span>
             </div>
             <div className="hero-layout">
               <div>
-                <p className="intro-name">Hi, I'm Yatharth.</p>
+                <p className="intro-name">Software Engineer · Java · React · Node.js</p>
                 <h1>
-                  Thoughtful systems.
+                  Software that works.
                   <br />
-                  <em>Visible proof.</em>
+                  <em>From UI to API.</em>
                 </h1>
                 <p className="hero-lead">
-                  I build backend workflows and applied AI projects around the
-                  hard parts: concurrent state, recoverable jobs, and evidence
-                  you can inspect.
+                  I build full-stack web products with React, Node.js,
+                  Express and PostgreSQL—connecting thoughtful interfaces
+                  to dependable APIs and secure, testable workflows.
                 </p>
                 <div className="actions">
                   <a className="button primary" href="#work">
@@ -280,7 +263,7 @@ function Home() {
             </div>
             <div className="hero-baseline">
               <span>BACKEND SYSTEMS</span>
-              <span>APPLIED INTELLIGENCE</span>
+              <span>REACT & NODE.JS</span>
               <span>JAVA & ALGORITHMS</span>
               <a href="#contact">Open to internship conversations ↗</a>
             </div>
@@ -304,16 +287,16 @@ function Home() {
                 "Transactions, role protection and durable jobs.",
               ],
               [
-                "Applied AI",
-                "Python · FastAPI · scikit-learn",
-                "YOLO · SciPy / HiGHS",
-                "Model evaluation, data audits and optimization.",
+                "Frontend",
+                "React · JavaScript · Vite",
+                "Responsive CSS · Accessible UI",
+                "Clear forms, workflows and role-aware interface states.",
               ],
               [
-                "Interface & delivery",
-                "React · Vite · JavaScript",
-                "Git · Docker · pytest",
-                "Clear workflows and repeatable local checks.",
+                "Testing & Delivery",
+                "Git · Docker · GitHub Actions",
+                "Playwright · CI · pytest",
+                "Repeatable builds, test coverage and documented limits.",
               ],
             ].map(([title, a, b, c]) => (
               <div className="expertise-item" key={title}>
@@ -342,7 +325,7 @@ function Home() {
               </p>
             </div>
             <div className="filters" role="group" aria-label="Filter projects">
-              {["All", "Systems", "Optimization", "Applied AI"].map((f) => (
+              {["All", "Systems", "Optimization", "Geospatial"].map((f) => (
                 <button
                   key={f}
                   aria-pressed={filter === f}
@@ -490,7 +473,7 @@ function Home() {
               <p>
                 Interested in software engineering internships,
                 <br />
-                backend systems and applied AI.
+                frontend and backend systems.
               </p>
             </div>
             <div className="contact-links">
@@ -558,7 +541,7 @@ function ProjectPage({ p }: any) {
                 <span>
                   {p.id === "evalforge"
                     ? "Private repository · no public deployment"
-                    : "In-progress research · local source"}
+                    : "In-progress project · local source"}
                 </span>
               )}
             </div>

@@ -11,32 +11,33 @@ window.PORTFOLIO_DATA = {
   certifications: [], // Empty until issuer-issued credential URLs or files are verified.
   projects: [
     {
-      id:'aegised', index:'01', category:'Systems', label:'FULL-STACK · SYSTEMS ENGINEERING',
-      title:'AegisED', subtitle:'Emergency operations, without compromising data integrity.',
-      short:'An emergency-operations platform connecting transactional resource allocation, role-aware workflows and human-reviewed ML decision support.',
-      stack:['React','Express','PostgreSQL','FastAPI','scikit-learn'],
+      id:'aegised', index:'01', category:'Systems', label:'FULL-STACK · REACT / NODE / POSTGRESQL',
+      title:'AegisED', subtitle:'End-to-end emergency operations with dependable state.',
+      short:'A full-stack operations application connecting React interfaces, Express REST APIs, role-based access and transaction-safe PostgreSQL workflows.',
+      stack:['React','Node.js','Express','PostgreSQL','Docker'],
       badges:['Public code','Demo documented'],
       repo:'https://github.com/YT-PRO12/AegisED', demo:'https://careflow-app.onrender.com',
       visual:'care', status:'DEMO DOCUMENTED', statusTone:'live',
-      highlight:'Row-level locking, auditable transitions and a human-in-the-loop ML service.',
-      overview:'AegisED explores the reliability problems behind coordinated emergency operations. It uses a React frontend, an Express gateway, PostgreSQL-backed workflows and a separate FastAPI service for non-clinical decision support. The application is an educational engineering demonstration, not a clinical product.',
-      problem:'When multiple operators allocate the same constrained resources, naïve CRUD APIs can produce inconsistent state. Emergency workflows also require clear authorization, traceability and careful boundaries around machine-learning recommendations.',
-      architecture:[['React client','Patient, operator and administrative workflows'],['Express gateway','Authentication, authorization, validation and auditing'],['PostgreSQL','Transactions, row locks, durable emergency state'],['FastAPI service','Human-reviewed synthetic-data ML recommendations']],
+      highlight:'Responsive operational interfaces, protected APIs, transactional allocations and audit history.',
+      overview:'AegisED is a full-stack emergency-operations engineering demonstration. The React frontend supports registration, case intake, doctor and bed assignment, treatment and discharge. The Node.js/Express API handles authentication, validation, role permissions and workflow rules, while PostgreSQL stores durable state and transactionally protects shared resources.',
+      problem:'When two operators assign the same doctor or bed, client-only state updates cannot guarantee consistency. The application must keep the UI and database aligned even when requests conflict or fail, while preserving access boundaries and auditability.',
+      architecture:[['React frontend','Role-aware registration, dashboards, cases and workflow interfaces'],['Node.js / Express API','REST endpoints, validation, sessions, RBAC and audit events'],['PostgreSQL / Neon','Relational records, transactions and SELECT FOR UPDATE row locks'],['Build & delivery','Vite frontend, Docker configuration and GitHub Actions checks']],
       contribution:[
-        'Built backend workflow transitions for patient intake, resource assignment, treatment and discharge using PostgreSQL transactions and row locking.',
-        'Kept authorization and audit events at the API layer, rather than relying on hidden frontend controls.',
-        'Integrated a separate FastAPI/scikit-learn service with human review and recorded override flows.'
+        'Built React workflows for emergency intake, resource management, treatment progression and discharge against backend APIs.',
+        'Implemented Express routes and server-side controls for authentication, role permissions, request validation and audit records.',
+        'Protected doctor and bed assignments using PostgreSQL transactions, row-level locking and rollback paths for conflicting requests.',
+        'Connected frontend state to backend-owned business rules instead of relying on cosmetic client-side permissions.'
       ],
       evidence:[
-        'Repository documents an accessible Render demonstration and a Neon-backed data path; availability can vary on free hosting.',
-        'The model README reports 0.7893 macro-F1 on 900 held-out synthetic cases. This is not clinical validation.',
-        'A dated release-readiness report records 16 passing local API integration tests and 9 passing Python tests.'
+        'Repository source documents the Express API, middleware, SQL workflows and public demonstration configuration.',
+        'Dated release-readiness evidence records 16 passing API integration tests, frontend lint/build checks and native PostgreSQL CI coverage for its referenced commit.',
+        'The Render demonstration is documented; its live availability and deployed revision require separate verification.'
       ],
-      limits:'Uses synthetic data; not clinically validated. Deployment checks are dated, and a current production acceptance run was not performed for this portfolio.',
+      limits:'Engineering demonstration with synthetic patient data, not a production healthcare system. Current provider availability, security accreditation and clinical readiness are not claimed.',
       source:[
-        ['App API and security middleware','https://github.com/YT-PRO12/AegisED/blob/main/backend/src/app.js'],
-        ['Release-readiness report','https://github.com/YT-PRO12/AegisED/blob/main/docs/RELEASE_READINESS.md'],
-        ['Public project README','https://github.com/YT-PRO12/AegisED/blob/main/README.md']
+        ['Express API and security middleware','https://github.com/YT-PRO12/AegisED/blob/main/backend/src/app.js'],
+        ['Release readiness and CI evidence','https://github.com/YT-PRO12/AegisED/blob/main/docs/RELEASE_READINESS.md'],
+        ['Project architecture and documentation','https://github.com/YT-PRO12/AegisED/blob/main/README.md']
       ]
     },
     {
@@ -93,27 +94,27 @@ window.PORTFOLIO_DATA = {
       ]
     },
     {
-      id:'routeguard', index:'04', category:'Applied AI', label:'COMPUTER VISION · GEOSPATIAL',
-      title:'RouteGuard 2.0', subtitle:'Road intelligence that earns its confidence.',
-      short:'An India-first road-hazard and navigation research project pairing YOLO detection with geospatial route comparison.',
-      stack:['Python','YOLO','React / Leaflet','PostGIS','TomTom'],
-      badges:['In progress','Target not achieved'],
+      id:'routeguard', index:'04', category:'Geospatial', label:'GEOSPATIAL · FULL-STACK NAVIGATION',
+      title:'RouteGuard 2.0', subtitle:'Driver-facing navigation built around trustworthy inputs.',
+      short:'An in-progress road-intelligence web application connecting React/Leaflet maps, Express APIs, PostGIS data and TomTom route comparisons.',
+      stack:['React','Leaflet','Node.js / Express','PostgreSQL / PostGIS','TomTom'],
+      badges:['In progress','Not safety validated'],
       visual:'route', status:'IN PROGRESS', statusTone:'research',
-      highlight:'Active dataset and label audits toward an ambitious, not-yet-met severe-hazard detection target.',
-      overview:'RouteGuard 2.0 is an ongoing road-hazard intelligence and navigation project. Its engineering work includes React/Leaflet driver workflows, an Express API, PostGIS-backed hazard data and TomTom routing, alongside experiments using YOLO models on road-damage imagery.',
-      problem:'Hazard-informed routing depends on uncertain observations. A model trained on noisy road-damage labels cannot responsibly be described as accurate or safety-guaranteeing without careful data audits and independent evaluation.',
-      architecture:[['Image and label audit','Road-damage data integrity and human review'],['YOLO RoadVision research','Four-class damage detection baseline/experiments'],['Express + PostGIS','Geospatial hazard storage and route signals'],['React + Leaflet + TomTom','Driver-facing place search and route comparison']],
+      highlight:'Destination search, GPS quality checks, geospatial data and route-comparison interfaces.',
+      overview:'RouteGuard 2.0 is an ongoing full-stack road-intelligence and navigation project. The architecture combines driver-facing React/Leaflet interfaces, an Express backend, geospatial PostgreSQL/PostGIS records and TomTom routing. Hazard-detection research remains a separate experimental input and is not presented as a deployed safety service.',
+      problem:'A usable navigation product must handle location permissions, imprecise or stale GPS readings, destination search and route previews before attempting any hazard-related decisions. Data reliability matters as much as a polished map.',
+      architecture:[['React + Leaflet','Driver UI, location feedback and interactive route maps'],['Express endpoints','Authenticated place search, resolution and route requests'],['PostgreSQL / PostGIS','Geospatial hazard records and location-aware queries'],['TomTom integration','Traffic-aware routing and route-comparison inputs']],
       contribution:[
-        'Worked on road-damage detection evaluation and data-integrity checks, including suspicious empty-label review and split leakage checks.',
-        'Built or integrated routing and map workflows that combine driver location, place resolution and hazard-informed route comparisons.',
-        'Maintained an explicit research target of at least 95% precision AND recall per severe-hazard class on an independent test set; not yet achieved.'
+        'Developed or integrated driver-mode location handling, manual-origin fallback and route previews in the frontend workflow.',
+        'Worked on authenticated destination search and place resolution against Express API contracts.',
+        'Connected route comparison with geospatial road-condition data while documenting incomplete hazard-accuracy research.'
       ],
       evidence:[
-        'Historical RDD2022-derived four-class baseline recorded 61.51% precision, 56.38% recall and 60.26% mAP50 on a validation set.',
-        'More recent candidate training underperformed the baseline; these experiments must not be represented as production performance.',
-        'Some severe target classes (open manholes, flooding, road collapse) are not represented by the four-class baseline.'
+        'Previous local development records describe frontend GPS accuracy/staleness checks and authenticated place-search integration.',
+        'Hazard model research and dataset audits remain experimental; there is no certified real-world detection accuracy or safety outcome.',
+        'A current public release and independent end-to-end production validation have not been established.'
       ],
-      limits:'In progress. The 95%+ precision/recall objective has not been reached or independently validated. Local source is not included in this portfolio package, and no verified public repository URL is supplied.',
+      limits:'In progress. No route is guaranteed safer. The earlier 95%+ severe-hazard precision and recall research objective remains unachieved; model experiments are not production performance. Local source is not public in this portfolio.',
       source:[]
     }
   ]

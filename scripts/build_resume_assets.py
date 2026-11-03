@@ -61,7 +61,7 @@ def make_resume(kind, filename):
         border_under(p)
     p=para('Yatharth Goyal',after=2,keep=True,style='Title')
     for r in p.runs:r.font.size=Pt(26);r.bold=True
-    role='SDE / BACKEND  |  JAVA · RELATIONAL SYSTEMS · ASYNC WORKFLOWS' if kind=='sde' else 'AI / ML  |  MODEL EVALUATION · COMPUTER VISION · OPTIMIZATION'
+    role='SOFTWARE ENGINEER  |  JAVA · FULL STACK · BACKEND SYSTEMS' if kind=='sde' else 'AI / ML  |  MODEL EVALUATION · COMPUTER VISION · OPTIMIZATION'
     p=para(role,after=7,keep=True)
     for r in p.runs:r.font.size=Pt(9);r.bold=True;r.font.color.rgb=GRAY
     p=para(after=2,keep=True);p.add_run('Jaipur, India  |  ')
@@ -72,7 +72,7 @@ def make_resume(kind, filename):
         hyperlink(p,label,url)
     heading('Technical Skills')
     skills={
-      'sde': [('Languages','Java, JavaScript, Python, SQL'),('Backend','Node.js, Express, PostgreSQL, Redis/BullMQ, FastAPI, REST APIs'),('Delivery','React, Vite, Git, Docker, GitHub Actions, pytest, Playwright'),('Foundations','Data structures and algorithms; 16-topic Java practice roadmap')],
+      'sde': [('Languages','Java, JavaScript, Python, SQL'),('Backend','Node.js, Express, PostgreSQL, Redis/BullMQ, REST APIs, RBAC'),('Frontend & Delivery','React, Vite, JavaScript, Git, Docker, CI, Playwright'),('Foundations','Data structures and algorithms; 16-topic Java practice roadmap')],
       'ml': [('Languages','Python, Java, SQL, JavaScript'),('ML and data','scikit-learn, YOLO, pandas, NumPy, SciPy/HiGHS, MILP'),('Systems','FastAPI, Express, PostgreSQL/PostGIS, Redis/BullMQ, React'),('Validation','pytest, Git, Docker; data audits, model evaluation; Java DSA')]
     }
     for label,value in skills[kind]:
@@ -80,10 +80,10 @@ def make_resume(kind, filename):
     heading('Selected Projects & Engineering Contributions')
     bullets={
       'sde': {
-       'aegised': ['Built transactional intake and doctor/bed allocation with PostgreSQL row locks; enforced API roles and audit trails across workflow transitions.','Integrated human-reviewed FastAPI ML support; documented macro-F1 of 0.7893 on 900 held-out synthetic cases, without clinical validation.'],
+       'aegised': ['Built React-driven intake, doctor/bed assignment and discharge flows backed by Express APIs, role checks and audit trails.','Protected shared doctor and bed allocations with PostgreSQL transactions, row-level locks and rollback handling for competing requests.'],
        'evalforge': ['Designed durable grading jobs with PostgreSQL persistence, BullMQ workers and idempotent processing; linked rubric scores to exact answer evidence.','Documented 15/15 backend and 7/7 evaluator local checks; hosted CI and full browser acceptance remain pending.'],
        'grid': ['Built SciPy/HiGHS energy scheduling with cost, balanced and carbon objectives; independently audited power balance, battery state and deadlines.','Documented 52/52 local regression tests on synthetic scenarios; AWS SAM templates are prepared, not deployed.'],
-       'routeguard': ['Developing React/Leaflet route comparison with Express, PostGIS and TomTom; auditing YOLO road-damage data and labels.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']},
+       'routeguard': ['Developing React/Leaflet route comparison with Express, PostGIS and TomTom; integrating driver location and destination resolution.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']},
       'ml': {
        'aegised': ['Integrated a FastAPI/scikit-learn triage-support service with human review and recorded overrides in an emergency-operations platform.','Documented macro-F1 of 0.7893 on 900 held-out synthetic cases; this is non-clinical evaluation, not clinical validation.'],
        'evalforge': ['Built rubric-grounded evaluation with exact response spans, output validation and instructor overrides; separated workers from durable PostgreSQL jobs.','Documented 7/7 evaluator and 15/15 backend local checks; no externally validated scoring accuracy or public deployment is claimed.'],
@@ -91,7 +91,7 @@ def make_resume(kind, filename):
        'routeguard': ['Evaluating YOLO road-damage models through label reviews, dataset-integrity checks and split-leakage audits; integrating PostGIS-backed route comparison.','Research target: 95%+ precision AND recall per severe-hazard class on independent test data. Target not achieved.']}}
     order=['aegised','evalforge','grid','routeguard'] if kind=='sde' else ['aegised','routeguard','evalforge','grid']
     titles={'aegised':'AegisED','evalforge':'EvalForge','grid':'Grid Flex','routeguard':'RouteGuard 2.0'}
-    status={'aegised':'SYNTHETIC ML · PUBLIC SOURCE','evalforge':'PRIVATE · RELEASE PENDING','grid':'LOCAL PROTOTYPE','routeguard':'IN PROGRESS'}
+    status={'aegised':'FULL-STACK · PUBLIC SOURCE','evalforge':'PRIVATE · RELEASE PENDING','grid':'LOCAL PROTOTYPE','routeguard':'IN PROGRESS'}
     for i,key in enumerate(order):
         p=para(before=8 if i else 0,after=3,keep=True,style='Heading 2')
         p.paragraph_format.tab_stops.add_tab_stop(Inches(7.03),WD_TAB_ALIGNMENT.RIGHT)
