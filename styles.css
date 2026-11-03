@@ -1398,3 +1398,34 @@ footer {
 .product-capture figcaption a {
   text-decoration: underline;
 }
+
+/* Software Engineer editorial refresh — compact, accessible, deliberate. */
+:root { --paper:#f6f6f2; --night:#18201d; --ink:#202923; --muted:#525e54; --line:#d6ded5; --accent:#d7edb5; --green:#3d5c3c; }
+.hero { background:radial-gradient(ellipse at 88% 5%,rgba(166,198,129,.13),transparent 50%),var(--night); }
+header { background:var(--night); }
+.hero h1,.section-heading h2,.case-hero h1 { text-wrap:balance; }
+.hero-lead { max-width:640px; }
+.hero-index > a,.project .diagram,.button,.resume-option,.filters button,.text-link { transition:background-color .2s ease,border-color .2s ease,box-shadow .2s ease,transform .2s ease,color .2s ease; }
+.hero-index > a:hover,.hero-index > a:focus-visible { background:rgba(215,237,181,.055);padding-left:10px; }
+.button.primary:hover { background:#e5f4d1;transform:translateY(-2px);box-shadow:0 8px 25px rgba(0,0,0,.1); }
+.button.secondary:hover { border-color:var(--accent);transform:translateY(-2px); }
+.project { position:relative; }
+.project:hover .diagram { border-color:#a7b8a5;box-shadow:0 16px 38px rgba(32,41,35,.065); }
+.filters button:hover { border-color:var(--green); }
+.resume-options { grid-template-columns:minmax(0,1fr); }
+.resume-option { background:#fff;border:1px solid var(--line);border-radius:8px;padding:26px;box-shadow:0 10px 35px rgba(22,35,26,.04); }
+.resume-option .eyebrow { margin:0 0 12px;color:var(--green);font-size:10px; }
+.resume-option a:hover,.contact-links a:hover { color:var(--green); }
+.project-description,.case-description { max-width:62ch; }
+.product-capture img { border-radius:4px; }
+::selection { background:#d7edb5;color:#18201d; }
+@media (max-width:760px) {
+ .hero-index > a:hover,.hero-index > a:focus-visible {padding-left:4px;}
+ .resume-option {padding:22px;}
+ .hero-meta {letter-spacing:.07em;}
+ .filters {flex-wrap:wrap;}
+ .filters button {min-height:42px;}
+}
+@media (prefers-reduced-motion:reduce) {
+ .hero-index > a,.project .diagram,.button,.resume-option,.filters button,.text-link {transition:none;transform:none!important;}
+}
