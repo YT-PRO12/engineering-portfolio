@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import "../styles.css";
+import DashboardPreview from "./DashboardPreview";
 const D = (window as any).PORTFOLIO_DATA;
 const projects = D.projects;
 const path = (id: string) => `/projects/${id}.html`;
@@ -363,7 +364,11 @@ function Home() {
                     </a>
                   </div>
                   <div className="project-evidence">
-                    <Diagram p={p} />
+                    {(p.id === "evalforge" || p.id === "grid-flex") ? (
+                      <DashboardPreview kind={p.id} compact />
+                    ) : (
+                      <Diagram p={p} />
+                    )}
                     <div className="evidence-strip">
                       <strong>{decisions[p.id].proof}</strong>
                       <span>{decisions[p.id].scope}</span>
@@ -572,6 +577,9 @@ function ProjectPage({ p }: any) {
               <p>{p.overview}</p>
               <p>{p.problem}</p>
             </section>
+            {(p.id === "evalforge" || p.id === "grid-flex") && (
+              <DashboardPreview kind={p.id} />
+            )}
             <Diagram p={p} />
             {p.id === "aegised" && (
               <figure className="product-capture">
