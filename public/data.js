@@ -94,28 +94,35 @@ window.PORTFOLIO_DATA = {
       ]
     },
     {
-      id:'routeguard', index:'04', category:'Geospatial', label:'GEOSPATIAL · FULL-STACK NAVIGATION',
-      title:'RouteGuard 2.0', subtitle:'Driver-facing navigation built around trustworthy inputs.',
-      short:'An in-progress road-intelligence web application connecting React/Leaflet maps, Express APIs, PostGIS data and TomTom route comparisons.',
-      stack:['React','Leaflet','Node.js / Express','PostgreSQL / PostGIS','TomTom'],
-      badges:['In progress','Not safety validated'],
-      visual:'route', status:'IN PROGRESS', statusTone:'research',
-      highlight:'Destination search, GPS quality checks, geospatial data and route-comparison interfaces.',
-      overview:'RouteGuard 2.0 is an ongoing full-stack road-intelligence and navigation project. The architecture combines driver-facing React/Leaflet interfaces, an Express backend, geospatial PostgreSQL/PostGIS records and TomTom routing. Hazard-detection research remains a separate experimental input and is not presented as a deployed safety service.',
-      problem:'A usable navigation product must handle location permissions, imprecise or stale GPS readings, destination search and route previews before attempting any hazard-related decisions. Data reliability matters as much as a polished map.',
-      architecture:[['React + Leaflet','Driver UI, location feedback and interactive route maps'],['Express endpoints','Authenticated place search, resolution and route requests'],['PostgreSQL / PostGIS','Geospatial hazard records and location-aware queries'],['TomTom integration','Traffic-aware routing and route-comparison inputs']],
+      id:'edupredict', index:'04', category:'Education', label:'FULL-STACK · STUDENT SUCCESS',
+      title:'EduPredict AI', subtitle:'Student insights that lead to action.',
+      short:'A student-success platform joining a React/Vite dashboard to FastAPI-backed assessments, explainable risk indicators and intervention workflows.',
+      stack:['React','Vite','FastAPI','Python','SQLite'],
+      badges:['Public repository','Live demo documented'],
+      repo:'https://github.com/YT-PRO12/EduPredictAI',
+      demo:'https://edu-predict-ai-64gq.vercel.app/',
+      visual:'edu', status:'DEMO DOCUMENTED', statusTone:'live',
+      highlight:'End-to-end assessment creation, student-level history, risk analytics and support-plan persistence.',
+      overview:'EduPredict AI is a full-stack early-warning and student-support application. Its React/Vite frontend contains dashboards, student directories, assessment forms, analytics and intervention views. A FastAPI backend handles assessment records, prediction requests, explanations and persisted student-specific intervention plans. The project README documents separate frontend and API hosting.',
+      problem:'Academic support teams need understandable workflows to identify students for review, inspect assessment history and track follow-up. Data integrity is as important as analytics: simultaneous form submissions must not overwrite one another, and intervention updates must stay scoped to the correct student.',
+      architecture:[['React/Vite interface','Dashboard, student records, assessments, analytics and intervention workflows'],['FastAPI endpoints','Assessment creation, model-inference requests and HTTP response contracts'],['SQLite data layer','Persisted assessments, student-level history and intervention records'],['Decision-support service','Risk indicators and explanations surfaced for human academic review']],
       contribution:[
-        'Developed or integrated driver-mode location handling, manual-origin fallback and route previews in the frontend workflow.',
-        'Worked on authenticated destination search and place resolution against Express API contracts.',
-        'Connected route comparison with geospatial road-condition data while documenting incomplete hazard-accuracy research.'
+        'Built a React-based dashboard and student navigation for assessment history, risk categories and actionable follow-up views.',
+        'Connected assessment forms and intervention workflows to FastAPI endpoints that validate request data and surface server errors.',
+        'Used server-generated assessment identifiers to preserve independent submissions when requests reuse a client-supplied identifier.',
+        'Added student-scoped intervention persistence with transaction and error-handling tests to protect existing support plans.'
       ],
       evidence:[
-        'Previous local development records describe frontend GPS accuracy/staleness checks and authenticated place-search integration.',
-        'Hazard model research and dataset audits remain experimental; there is no certified real-world detection accuracy or safety outcome.',
-        'A current public release and independent end-to-end production validation have not been established.'
+        'Public repository contains a React/Vite Dashboard.jsx, student and intervention pages, and FastAPI backend endpoints.',
+        'Database regression tests cover assessment identifiers, student isolation, intervention rollback, malformed probabilities and connection cleanup.',
+        'The README documents Vercel frontend and Render API endpoints; deployment availability and integrated production behavior must be checked separately.'
       ],
-      limits:'In progress. No route is guaranteed safer. The earlier 95%+ severe-hazard precision and recall research objective remains unachieved; model experiments are not production performance. Local source is not public in this portfolio.',
-      source:[]
+      limits:'Student risk signals are exploratory decision support, not verified real-world dropout forecasts or decisions about individuals. The portfolio dashboard depicts illustrative synthetic records, not real student data. Accuracy and hosted uptime are not claimed.',
+      source:[
+        ['React dashboard implementation','https://github.com/YT-PRO12/EduPredictAI/blob/main/frontend/src/pages/Dashboard.jsx'],
+        ['Assessment and intervention API','https://github.com/YT-PRO12/EduPredictAI/blob/main/backend/main.py'],
+        ['Database test scope','https://github.com/YT-PRO12/EduPredictAI/blob/main/tests/README.md']
+      ]
     }
   ]
 };
