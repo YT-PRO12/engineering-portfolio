@@ -5,7 +5,7 @@ import DashboardPreview from "./DashboardPreview";
 const D = (window as any).PORTFOLIO_DATA;
 const projects = D.projects;
 const path = (id: string) => `/projects/${id}.html`;
-const resume = "https://drive.google.com/file/d/1pPOzUIJYmg51kNPHuExmy2VBvKdnPOqb/view";
+const resume = "/resume/Yatharth_Goyal_Resume.pdf";
 const arrow = <span aria-hidden="true">↗</span>;
 function External({ href, children, ...props }: any) {
   return (
@@ -196,7 +196,7 @@ function ResumeLinks() {
             <h3>Software Engineer Resume</h3>
             <p>Backend development · Distributed systems · Full-stack projects</p>
             <div>
-              <a href={resume} target="_blank" rel="noopener noreferrer" aria-label="Open the latest official Software Engineer resume PDF">View latest PDF ↗</a>
+              <a href={resume} target="_blank" rel="noopener noreferrer" aria-label="Download the latest official Software Engineer resume PDF">Download verified PDF ↓</a>
             </div>
           </div>
         </div>
