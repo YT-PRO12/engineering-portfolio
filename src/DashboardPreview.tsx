@@ -1,7 +1,7 @@
 import React from "react";
 import "./DashboardPreview.css";
 
-type DashboardKind = "evalforge" | "grid-flex";
+type DashboardKind = "evalforge" | "grid-flex" | "edupredict";
 
 type Props = {
   kind: DashboardKind;
@@ -135,17 +135,79 @@ function GridFlexInterface() {
   );
 }
 
+
+const studentExamples = [
+  { code:"STU-101", status:"Review recommended",tone:"amber" },
+  { code:"STU-102", status:"Monitor progress",tone:"blue" },
+  { code:"STU-103", status:"Plan documented",tone:"green" },
+];
+
+function EduPredictInterface() {
+  return (
+    <div className="showcase-app showcase-edupredict">
+      <aside className="showcase-sidebar">
+        <div className="showcase-app-brand"><b>ED</b><span>EduPredict<small>Student success</small></span></div>
+        <span className="showcase-side-label">WORKSPACE</span>
+        <span className="showcase-side-link chosen"><i>▦</i> Overview</span>
+        <span className="showcase-side-link"><i>▤</i> Assess student</span>
+        <span className="showcase-side-link"><i>◫</i> Students</span>
+        <span className="showcase-side-link"><i>◈</i> Interventions</span>
+        <div className="showcase-side-bottom">Synthetic examples <span>·</span> UI depiction</div>
+      </aside>
+      <div className="showcase-workspace">
+        <div className="showcase-workspace-top">
+          <span>Student success / Overview</span>
+          <span className="showcase-demo-mark">SAMPLE RECORDS</span>
+        </div>
+        <div className="showcase-dashboard-title">
+          <div><span className="showcase-kicker">EARLY WARNING · SUPPORT WORKFLOWS</span><h3>Insights into action.</h3><p>Assess needs, review context, plan follow-up.</p></div>
+          <span className="showcase-outline-label">Illustrative interface</span>
+        </div>
+        <div className="showcase-stat-grid">
+          <div><span>ASSESSMENTS</span><strong>Stored history</strong><small>Server-issued identifiers</small></div>
+          <div><span>RISK GROUPS</span><strong>3 categories</strong><small>High · medium · low</small></div>
+          <div><span>FOLLOW-UP</span><strong>Action plans</strong><small>Student-specific records</small></div>
+        </div>
+        <div className="showcase-data-grid">
+          <section className="showcase-panel showcase-queue">
+            <div className="showcase-panel-heading"><div><b>Student review queue</b><span>Illustrative entries — not actual students</span></div><span>View students ↗</span></div>
+            <div className="showcase-table-head"><span>ANONYMOUS STUDENT</span><span>FOLLOW-UP</span></div>
+            {studentExamples.map(row=>(
+              <div className="showcase-queue-row" key={row.code}>
+                <div><small>SAMPLE RECORD</small><strong>{row.code}</strong></div>
+                <span className={"showcase-status is-"+row.tone}>{row.status}</span>
+              </div>
+            ))}
+          </section>
+          <section className="showcase-panel showcase-review">
+            <div className="showcase-panel-heading"><div><b>Support plan</b><span>Human-reviewed intervention</span></div><span>WORKFLOW</span></div>
+            <div className="showcase-rubric-label">FOLLOW-UP STEPS</div>
+            <div className="showcase-edu-steps">
+              <div><span>01</span><b>Assess student</b><small>Record academic context</small></div>
+              <div><span>02</span><b>Review risk</b><small>Interpret explanation and history</small></div>
+              <div><span>03</span><b>Plan intervention</b><small>Track the next student support step</small></div>
+            </div>
+          </section>
+        </div>
+        <div className="showcase-product-footer">EDUCATION WORKFLOW <span>React UI → FastAPI → Assessment history → Intervention</span></div>
+      </div>
+    </div>
+  );
+}
+
 export default function DashboardPreview({kind,compact=false}:Props) {
   const evalforge=kind==="evalforge";
+  const grid=kind==="grid-flex";
+  const title=evalforge?"EvalForge":grid?"Grid Flex":"EduPredict AI";
   return (
-    <figure className={"portfolio-showcase " + (compact ? "showcase-compact " : "") + (evalforge ? "showcase-theme-eval" : "showcase-theme-grid")}>
+    <figure className={"portfolio-showcase " + (compact?"showcase-compact ":"") + (evalforge?"showcase-theme-eval":grid?"showcase-theme-grid":"showcase-theme-edu")}>
       <div className="showcase-frame">
-        <BrowserChrome name={evalforge ? "EvalForge" : "Grid Flex"} location={evalforge ? "assessment / instructor view" : "energy / planning workspace"}/>
-        {evalforge ? <EvalForgeInterface/> : <GridFlexInterface/>}
+        <BrowserChrome name={title} location={evalforge?"assessment / instructor":grid?"energy / planning":"student success / dashboard"}/>
+        {evalforge?<EvalForgeInterface/>:grid?<GridFlexInterface/>:<EduPredictInterface/>}
       </div>
       <figcaption>
-        <strong>{evalforge ? "EvalForge interface concept" : "Grid Flex prototype depiction"}</strong>
-        <span>{evalforge ? "Illustrative sample workflow derived from documented application features; not a captured live dashboard." : "Synthetic example values illustrating the project's local planning interface; not measured outputs or a live deployment."}</span>
+        <strong>{evalforge?"EvalForge interface concept":grid?"Grid Flex prototype depiction":"EduPredict AI student dashboard"}</strong>
+        <span>{evalforge?"Illustrative assessment workflow, not a live screenshot.":grid?"Illustrative synthetic planning data, not measured solver output.":"Illustrative, anonymized example records based on the application's documented workflow; not a live student-data screenshot."}</span>
       </figcaption>
     </figure>
   );
