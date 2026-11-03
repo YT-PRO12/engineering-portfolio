@@ -9,7 +9,7 @@ export default defineConfig({
         aegised: resolve("projects/aegised.html"),
         evalforge: resolve("projects/evalforge.html"),
         gridflex: resolve("projects/grid-flex.html"),
-        routeguard: resolve("projects/routeguard.html"),
+        edupredict: resolve("projects/edupredict.html"),
       },
     },
   },

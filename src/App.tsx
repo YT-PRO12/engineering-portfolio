@@ -52,17 +52,17 @@ const decisions: any = {
     nodes: ["Scenario", "MILP solve", "Audit", "Compare"],
     invariant: "Feasibility before an objective value.",
   },
-  routeguard: {
-    title: "Connect location, road data and usable routes.",
-    focus: "Geospatial product development",
-    proof: "Active full-stack development",
-    scope: "React / Leaflet · Express · PostGIS · TomTom",
+  edupredict: {
+    title: "Turn student records into actionable workflows.",
+    focus: "Full-stack education platform",
+    proof: "React UI + FastAPI services",
+    scope: "Assessment history · Risk dashboards · Intervention plans",
     reason:
-      "Navigation interfaces must handle location permissions, stale GPS fixes, destination search and route comparisons without hiding uncertainty from drivers.",
+      "Academic support teams need one dependable workflow from student assessment to reviewable risk indicators and intervention follow-up. The React application connects dashboard, assessment, analytics and student pages to documented FastAPI endpoints.",
     tradeoff:
-      "Routing and map interaction are software-engineering work in progress. Hazard-model research is experimental and does not establish that any route is safe.",
-    nodes: ["Place search", "Express API", "PostGIS", "Map routes"],
-    invariant: "Useful navigation. No safety guarantees.",
+      "The server owns persistent assessment IDs and database writes. A prediction is decision-support evidence, not an automatic academic judgment; the interface keeps student interventions reviewable.",
+    nodes: ["React dashboard", "FastAPI", "Assessment store", "Support plan"],
+    invariant: "Student context before decisions.",
   },
 };
 function Nav() {
@@ -326,7 +326,7 @@ function Home() {
               </p>
             </div>
             <div className="filters" role="group" aria-label="Filter projects">
-              {["All", "Systems", "Optimization", "Geospatial"].map((f) => (
+              {["All", "Systems", "Optimization", "Education"].map((f) => (
                 <button
                   key={f}
                   aria-pressed={filter === f}
@@ -364,7 +364,7 @@ function Home() {
                     </a>
                   </div>
                   <div className="project-evidence">
-                    {(p.id === "evalforge" || p.id === "grid-flex") ? (
+                    {(p.id === "evalforge" || p.id === "grid-flex" || p.id === "edupredict") ? (
                       <DashboardPreview kind={p.id} compact />
                     ) : (
                       <Diagram p={p} />
@@ -577,7 +577,7 @@ function ProjectPage({ p }: any) {
               <p>{p.overview}</p>
               <p>{p.problem}</p>
             </section>
-            {(p.id === "evalforge" || p.id === "grid-flex") && (
+            {(p.id === "evalforge" || p.id === "grid-flex" || p.id === "edupredict") && (
               <DashboardPreview kind={p.id} />
             )}
             <Diagram p={p} />
@@ -657,9 +657,7 @@ function ProjectPage({ p }: any) {
             <section id="limits" className="limitations">
               <p className="eyebrow">05 / CURRENT LIMITATIONS</p>
               <h2>
-                {p.id === "routeguard"
-                  ? "In progress. The target is unachieved."
-                  : "The boundary of this work."}
+                The boundary of this work.
               </h2>
               <p>{p.limits}</p>
             </section>
