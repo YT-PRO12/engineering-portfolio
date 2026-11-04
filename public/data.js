@@ -16,7 +16,7 @@ window.PORTFOLIO_DATA = {
       short:'A full-stack operations application connecting React interfaces, Express REST APIs, role-based access and transaction-safe PostgreSQL workflows.',
       stack:['React','Node.js','Express','PostgreSQL','Docker'],
       badges:['Public code','Demo documented'],
-      repo:'https://github.com/YT-PRO12/AegisED', demo:'https://careflow-app.onrender.com',
+      repo:'https://github.com/YT-PRO12/AegisED', demo:'/demos/aegised.html', demoLabel:'Guest preview · no login', productionDemo:'https://careflow-app.onrender.com/', productionNote:'Full application uses login and RBAC; protected access is preserved.',
       visual:'care', status:'DEMO DOCUMENTED', statusTone:'live',
       highlight:'Responsive operational interfaces, protected APIs, transactional allocations and audit history.',
       overview:'AegisED is a full-stack emergency-operations engineering demonstration. The React frontend supports registration, case intake, doctor and bed assignment, treatment and discharge. The Node.js/Express API handles authentication, validation, role permissions and workflow rules, while PostgreSQL stores durable state and transactionally protects shared resources.',
@@ -31,7 +31,7 @@ window.PORTFOLIO_DATA = {
       evidence:[
         'Repository source documents the Express API, middleware, SQL workflows and public demonstration configuration.',
         'Dated release-readiness evidence records 16 passing API integration tests, frontend lint/build checks and native PostgreSQL CI coverage for its referenced commit.',
-        'The Render demonstration is documented; its live availability and deployed revision require separate verification.'
+        'A no-login synthetic guest walkthrough is publicly available; the original Render application retains its protected login and was not accessible in unauthenticated checks.'
       ],
       limits:'Engineering demonstration with synthetic patient data, not a production healthcare system. Current provider availability, security accreditation and clinical readiness are not claimed.',
       source:[
@@ -45,8 +45,9 @@ window.PORTFOLIO_DATA = {
       title:'EvalForge', subtitle:'Assessment intelligence with the instructor in control.',
       short:'A rubric-grounded assessment engine using durable jobs, async workers and criterion-linked evidence for human review.',
       stack:['React','Express','PostgreSQL','Redis / BullMQ','FastAPI'],
-      badges:['Private repository','Local verification'],
-      visual:'eval', status:'RELEASE PENDING', statusTone:'pending',
+      badges:['Private repository','Guest walkthrough'],
+      demo:'/demos/evalforge.html', demoLabel:'Guest preview · no login', productionNote:'Private original remains login-protected and its Render demo has not been verified healthy.',
+      visual:'eval', status:'PREVIEW AVAILABLE', statusTone:'pending',
       highlight:'Evidence spans, idempotent job persistence and bounded worker recovery.',
       overview:'EvalForge accepts student submissions, evaluates rubric criteria, stores evidence, and supports instructor approval, overrides and appeals. PostgreSQL holds durable records, Redis/BullMQ schedules work, and a separate FastAPI evaluator performs written-answer scoring. Its repository is private and not linked publicly.',
       problem:'Automated assessment needs more than a score. Reviewers must be able to inspect supporting answer spans, override recommendations and recover safely if a worker crashes or a submission is retried.',
@@ -61,7 +62,7 @@ window.PORTFOLIO_DATA = {
         'Frontend lint/build and six server-rendered presentation checks passed; these are not browser E2E tests.',
         'CI is configured, while hosted CI and full real-service browser acceptance remain pending.'
       ],
-      limits:'Private source; no public deployment or live demo. Hosted CI, Docker runtime and full end-to-end acceptance have not been established. Optional code runner remains disabled.',
+      limits:'Source repository remains private and the protected live service is not verified healthy. A public, read-only interactive walkthrough is available using illustrative synthetic records; it is not a production deployment or live evaluation. Hosted CI and full end-to-end acceptance remain pending.',
       source:[]
     },
     {
@@ -70,8 +71,8 @@ window.PORTFOLIO_DATA = {
       short:'A synthetic industrial energy planner using mixed-integer optimization, independent constraint checks and cost/carbon trade-off analysis.',
       stack:['Python','SciPy / HiGHS','MILP','JavaScript','AWS SAM'],
       badges:['Public code','Local prototype'],
-      repo:'https://github.com/YT-PRO12/Grid-Flex',
-      visual:'grid', status:'LOCAL PROTOTYPE', statusTone:'pending',
+      repo:'https://github.com/YT-PRO12/Grid-Flex', demo:'https://chimerical-praline-ff8e07.netlify.app/', demoLabel:'Live interactive demo · no login',
+      visual:'grid', status:'LIVE WEB DEMO', statusTone:'pending',
       highlight:'Three optimization objectives, independent mathematical audits and scenario stress tests.',
       overview:'Grid Flex models a synthetic factory with production deadlines, solar generation, battery storage and grid constraints. SciPy/HiGHS solves mixed-integer programs for cost, balanced and carbon-priority schedules, and an independent verifier inspects the serialized results.',
       problem:'Optimized schedules can appear convincing while violating physical or financial constraints. The decision surface also needs to expose trade-offs instead of presenting a single unexplained answer.',
@@ -86,7 +87,7 @@ window.PORTFOLIO_DATA = {
         'Desktop/mobile Chromium interaction tests and local API smoke tests are documented.',
         'AWS infrastructure is templated, but no live Lambda/API Gateway/DynamoDB deployment is verified.'
       ],
-      limits:'Illustrative synthetic scenarios only; not factory savings, measured emissions or a physical control system. Cloud deployment remains unverified.',
+      limits:'The public interactive web demonstration uses synthetic factory scenarios. It is not physical equipment control or verified industrial savings. The AWS SAM infrastructure remains a prepared template, not a verified live cloud deployment.',
       source:[
         ['Optimizer implementation','https://github.com/YT-PRO12/Grid-Flex/blob/main/engine/optimizer.py'],
         ['Post-solve verifier','https://github.com/YT-PRO12/Grid-Flex/blob/main/engine/verification.py'],
@@ -100,7 +101,7 @@ window.PORTFOLIO_DATA = {
       stack:['React','Vite','FastAPI','Python','SQLite'],
       badges:['Public repository','Live demo documented'],
       repo:'https://github.com/YT-PRO12/EduPredictAI',
-      demo:'https://edu-predict-ai-64gq.vercel.app/',
+      demo:'https://edu-predict-ai-64gq.vercel.app/', demoLabel:'Live dashboard · no login',
       visual:'edu', status:'DEMO DOCUMENTED', statusTone:'live',
       highlight:'End-to-end assessment creation, student-level history, risk analytics and support-plan persistence.',
       overview:'EduPredict AI is a full-stack early-warning and student-support application. Its React/Vite frontend contains dashboards, student directories, assessment forms, analytics and intervention views. A FastAPI backend handles assessment records, prediction requests, explanations and persisted student-specific intervention plans. The project README documents separate frontend and API hosting.',
