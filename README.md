@@ -43,3 +43,18 @@ The homepage and EduPredict case study include a **clearly labeled illustrative 
 ## Link access policy
 
 Certificate completion PDFs are hosted publicly in `public/certificates/` to avoid owner-only Google Drive permissions. Course-prep certificates (AI-900/AI-102) are **course completion, not Microsoft certification exams**. Private EvalForge code and an unavailable live demo are intentionally replaced with the public EvalForge case study in the official PDF. This improves link access without claiming public access to private source code. 
+
+## Recruiter demo access policy
+
+Every featured project now has a clearly labeled public entry point.
+
+| Project | Public entry point | Nature of access |
+| --- | --- | --- |
+| AegisED | `/demos/aegised.html` | Interactive guest walkthrough, synthetic data, no backend authentication bypass |
+| EvalForge | `/demos/evalforge.html` | Interactive guest walkthrough, synthetic data, not the private/live grading system |
+| Grid Flex | https://chimerical-praline-ff8e07.netlify.app/ | Actual publicly reachable synthetic factory web interface |
+| EduPredict AI | https://edu-predict-ai-64gq.vercel.app/ | Actual publicly reachable student-success dashboard; synthetic/demo content |
+
+The real AegisED and EvalForge applications **continue to require authentication and authorization**. Their guest walkthroughs deliberately do **not** call backend endpoints and are not proof of an accessible live production service. Role/ownership checks and protected actions are explained in dedicated guest-preview tabs. Do not invite recruiters to enter real patient/student details.
+
+The official resume PDF labels AegisED and EvalForge as guest demo experiences and directly links the live Grid Flex and EduPredict interfaces. An automated deployment or a working static preview must not be represented as verified production backend availability.
