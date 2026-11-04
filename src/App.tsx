@@ -358,9 +358,16 @@ function Home() {
                         <span key={s}>{s}</span>
                       ))}
                     </div>
-                    <a className="text-link" href={path(p.id)}>
-                      Read the case study {arrow}
-                    </a>
+                    <div className="recruiter-demo-actions">
+                      {p.demo && (
+                        <a className="demo-link" href={p.demo} target="_blank" rel="noopener noreferrer">
+                          {p.demoLabel || "Open interactive demo"} ↗
+                        </a>
+                      )}
+                      <a className="text-link" href={path(p.id)}>
+                        Engineering case study {arrow}
+                      </a>
+                    </div>
                   </div>
                   <div className="project-evidence">
                     {(p.id === "evalforge" || p.id === "grid-flex" || p.id === "edupredict") ? (
@@ -537,18 +544,25 @@ function ProjectPage({ p }: any) {
                 </External>
               )}
               {p.demo && (
-                <External className="button secondary" href={p.demo}>
-                  Documented demo{" "}
+                <External className="button primary" href={p.demo}>
+                  {p.demoLabel || "Open interactive demo"}{" "}
+                </External>
+              )}
+              {p.productionDemo && (
+                <External className="button secondary" href={p.productionDemo}>
+                  Protected application{" "}
                 </External>
               )}
               {!p.repo && (
                 <span>
                   {p.id === "evalforge"
-                    ? "Private repository · no public deployment"
-                    : "In-progress project · local source"}
+                    ? "Private source · publicly accessible read-only preview"
+                    : "Source availability described below"}
                 </span>
               )}
             </div>
+            {p.productionNote && <p className="demo-auth-note">{p.productionNote}</p>}
+            {p.demo && <p className="demo-auth-note">Recruiters can explore the linked preview without creating an account. Authentication and authorization in the source application are distinct from public viewing.</p>}
             <div className="tags">
               {p.stack.map((s: string) => (
                 <span key={s}>{s}</span>
