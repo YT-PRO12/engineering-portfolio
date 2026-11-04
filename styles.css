@@ -1429,3 +1429,12 @@ header { background:var(--night); }
 @media (prefers-reduced-motion:reduce) {
  .hero-index > a,.project .diagram,.button,.resume-option,.filters button,.text-link {transition:none;transform:none!important;}
 }
+
+/* Public guest demos: prominent, accessible calls to action on every project. */
+.recruiter-demo-actions { display:flex; flex-wrap:wrap; align-items:center; gap:15px 20px; margin-top:20px; }
+.demo-link { display:inline-flex; align-items:center; justify-content:center; text-align:center; border-radius:7px; background:#d7edb5; border:1px solid #b9d39a; padding:11px 14px; color:#21352b; font-weight:700; font-size:13px; line-height:1.35; text-decoration:none; transition:background-color .2s ease,transform .2s ease; }
+.demo-link:hover { background:#e8f4d5; transform:translateY(-2px); }
+.demo-link:focus-visible { outline:3px solid #6b8a4e; outline-offset:4px; }
+.demo-auth-note { color:var(--muted); font-size:12px; line-height:1.55; max-width:69ch; margin-top:13px; }
+@media(max-width:620px) { .recruiter-demo-actions { align-items:stretch; } .demo-link { width:100%; } }
+@media(prefers-reduced-motion:reduce) { .demo-link { transition:none; transform:none!important; } }
