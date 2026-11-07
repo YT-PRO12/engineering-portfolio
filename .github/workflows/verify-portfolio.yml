@@ -22,3 +22,4 @@ jobs:
           python-version: '3.12'
       - run: pip install 'python-docx>=1.1,<2' 'pypdf>=5,<7'
       - run: python scripts/check_assets.py
+      - run: python scripts/check_demo_disclosures.py
